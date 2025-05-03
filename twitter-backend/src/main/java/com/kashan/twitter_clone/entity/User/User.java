@@ -32,6 +32,9 @@ public class User {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "password", nullable = false)
+    private String password;
+
     @Column(name = "handle", nullable = false, length = 16)
     private String handle;
 
