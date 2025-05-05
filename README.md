@@ -12,7 +12,7 @@ A clone of Twitter (now X but that nobody calls it that) using SQL, Java Spring,
 - Users can scroll through a feed of all tweets or following tweets
 - Users can like and bookmark tweets, and view them specifically
     - May add the ability to sort to this feature and the above
-- Tweets will consist of text and upto 1 gif
+- Tweets will consist of text and up to 1 gif
 - Tweets will show the number of likes and bookmarks (subject to change)
 - Tweets can have tags
 - Users can retweet or quote-retweet

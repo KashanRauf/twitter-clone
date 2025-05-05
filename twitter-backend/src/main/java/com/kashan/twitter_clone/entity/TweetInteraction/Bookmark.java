@@ -1,5 +1,5 @@
-package com.kashan.twitter_clone.entity.TweetInteraction;
+// package com.kashan.twitter_clone.entity.TweetInteraction;
 
-public class Bookmark {
+// public class Bookmark {
     
-}
+// }
