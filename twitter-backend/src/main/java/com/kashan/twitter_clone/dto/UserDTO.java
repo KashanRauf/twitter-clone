@@ -1,6 +1,6 @@
 package com.kashan.twitter_clone.dto;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,8 +22,8 @@ public class UserDTO {
     private String handle;
     private String displayName;
     private UserRole role;
-    private Date creationDateTime;
-    private Date birthDate;
+    private LocalDate creationDateTime;
+    private LocalDate birthDate;
     private Set<Tweet> tweets = new HashSet<>();
     private Set<User> following = new HashSet<>();
     private Set<User> blocked = new HashSet<>();
@@ -40,8 +40,8 @@ public class UserDTO {
         this.handle = u.getHandle();
         this.displayName = u.getDisplayName();
         this.role = u.getRole();
-        this.creationDateTime = new Date(u.getCreationDateTime().getTime());
-        this.birthDate = new Date(u.getBirthDate().getTime());
+        this.creationDateTime = u.getCreationDateTime();
+        this.birthDate = u.getBirthDate();
         this.tweets = new HashSet<>(u.getTweets());
         this.following = new HashSet<>(u.getFollowing());
         this.blocked = new HashSet<>(u.getBlocked());

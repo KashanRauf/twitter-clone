@@ -2,6 +2,7 @@ package com.kashan.twitter_clone.service.impl;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kashan.twitter_clone.dto.UserDTO;
@@ -24,6 +25,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public AuthenticationResponse register(UserDTO dto) {
+        // TODO For much later probably, but validate data before registering it and perform error handling
+
+        dto.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
+
         User registered = repo.save(new User(dto));
         String token = jwtService.generateToken(registered);
 
@@ -36,8 +41,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             request.getHandle(), request.getPassword()
         ));
 
-        // TODO see what kind of exception might be sensible here
+        // TODO Use debugging techniques to find out what errors to handle
         User user = repo.findByHandle(request.getHandle()).orElseThrow();
+        String token = jwtService.generateToken(user);
+        
+        return AuthenticationResponse.builder().token(token).build();
     }
     
 }

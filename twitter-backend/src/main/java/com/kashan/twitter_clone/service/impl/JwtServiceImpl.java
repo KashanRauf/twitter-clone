@@ -22,6 +22,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class JwtServiceImpl implements JwtService {
 
+    // In an actual project this should be handled in a way that doesn't end up with
+    // the secret key on github
     private static final String SECRET_KEY = "035a8ce1977410801941d2f9e7c9d91e5f4d40d235e41c898e2c6511308c8eef";
 
     @Override
@@ -40,14 +42,14 @@ public class JwtServiceImpl implements JwtService {
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails user) {
         return Jwts
-            .builder()
-            .claims(extraClaims)
-            .subject(user.getUsername())
-            .issuedAt(new Date(System.currentTimeMillis()))
-            // Determines how long until the token expires
-            .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
-            .signWith(getSignInKey(), Jwts.SIG.HS256)
-            .compact();
+                .builder()
+                .claims(extraClaims)
+                .subject(user.getUsername())
+                .issuedAt(new Date(System.currentTimeMillis()))
+                // Determines how long until the token expires
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .signWith(getSignInKey(), Jwts.SIG.HS256)
+                .compact();
     }
 
     public boolean isTokenValid(String token, UserDetails user) {
@@ -62,13 +64,13 @@ public class JwtServiceImpl implements JwtService {
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
- 
+
     private Claims extractAllClaims(String token) {
         return Jwts
-            .parser()
-            .verifyWith(getSignInKey())
-            .build().parseSignedClaims(token)
-            .getPayload();
+                .parser()
+                .verifyWith(getSignInKey())
+                .build().parseSignedClaims(token)
+                .getPayload();
     }
 
     private SecretKey getSignInKey() {

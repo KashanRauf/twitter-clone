@@ -36,11 +36,13 @@ public class SecurityConfig {
         //     .authenticationProvider(authenticationProvider)
         //     .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
+        // Will have to adjust so not every authenticated user can access any endpoint
+        // E.g. only certain endpoints should have access to endpoints that fetch passwords
         http
             .csrf((csrf) -> csrf.disable())
             .authorizeHttpRequests(requests -> requests
                     // For requests that don't need authentication
-                    .requestMatchers("/api/**")
+                    .requestMatchers("/api/auth/**")
                     .permitAll()
                     // For requests that only authenticated users can perform
                     .anyRequest()

@@ -1,6 +1,6 @@
 package com.kashan.twitter_clone.entity.User;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -25,8 +25,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -61,13 +59,11 @@ public class User implements UserDetails {
     @Column(name = "role", nullable = false)
     private UserRole role;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "creation", nullable = false)
-    private Date creationDateTime;
+    private LocalDate creationDateTime;
     
-    @Temporal(TemporalType.DATE)
     @Column(name = "birth_date", nullable = true)
-    private Date birthDate;
+    private LocalDate birthDate;
 
     // For user's tweet's
     @OneToMany(mappedBy = "user")
@@ -121,8 +117,8 @@ public class User implements UserDetails {
         this.handle = u.getHandle();
         this.displayName = u.getDisplayName();
         this.role = u.getRole();
-        this.creationDateTime = new Date(u.getCreationDateTime().getTime());
-        this.birthDate = new Date(u.getBirthDate().getTime());
+        this.creationDateTime = u.getCreationDateTime();
+        this.birthDate = u.getBirthDate();
         this.tweets = new HashSet<>(u.getTweets());
         this.following = new HashSet<>(u.getFollowing());
         this.blocked = new HashSet<>(u.getBlocked());
