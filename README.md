@@ -19,4 +19,4 @@ A clone of Twitter (now X but that nobody calls it that) using SQL, Java Spring,
 - Users can reply to tweets
 
 ## Implemented features
--  : )
+-  Can now register from the frontend
