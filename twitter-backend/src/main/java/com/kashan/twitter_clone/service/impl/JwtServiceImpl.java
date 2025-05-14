@@ -41,6 +41,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails user) {
+        // TODO update with any information that may be best to extract from token
         return Jwts
                 .builder()
                 .claims(extraClaims)

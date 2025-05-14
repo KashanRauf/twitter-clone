@@ -206,7 +206,7 @@ button:focus-visible {
   top: 1em;
 }
 
-.lr-form {
+.register-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1.2fr 1fr;
@@ -239,10 +239,11 @@ button:focus-visible {
   display: none;
 }
 
-.lr-form-pair {
+.register-form-pair {
   width: 100%;
 
   & label, input {
+    width: 195px;
     display: block;
   }
 
@@ -294,12 +295,12 @@ button:focus-visible {
   background-color: #1a1a1a;
   border: solid 1px #f9f9f9;
   border-radius: 8px;
-  width: 18vw;
-  margin-left: -4vw;
+  min-width: 12vw;
+  max-width: 24vw;
+  /* margin-left: -2em; */
   box-shadow: 8px 8px 12px rgba(0, 0, 0, 20);
 
   & .react-aria-Calendar {
-
 
     & header {
       display: flex;
@@ -408,8 +409,41 @@ button:focus-visible {
           }
         }
       }
+    }
+  }
+}
 
+.login-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 2.2fr 1fr;
+  row-gap: 18px;
+  justify-items: center;
 
+  & button {
+    grid-column: 1 / 2;
+    width: 50%;
+  }
+}
+
+.login-form-pair {
+  width: 100%;
+
+  & label, input {
+    width: 402px;
+    display: block;
+  }
+
+  & input {
+    padding: 4px 6px;
+    border: solid 1px #f9f9f97f;
+    border-radius: 4px;
+    background-color: #1a1a1a;
+    color: #f9f9f9;
+    
+    &:focus,:focus-visible,:active {
+      outline: none;
+      border-color: #1d9bf0 !important;
     }
   }
 }

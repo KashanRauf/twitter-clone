@@ -1,27 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IconContext } from "react-icons/lib";
 import { LuRabbit } from "react-icons/lu";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import ModalBG from "../components/ModalBG";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
 
     const [showSignin, setShowSignin] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const nav = useNavigate();
 
-    // const handleLogin = (user) => {
-    //     // Authenticate and save token
-    //     axios
-    //         .post("http://127.0.0.1:8080/api/auth/authenticate", { "handle": user.username, "password": user.password })
-    //         .then((response) => {
-    //             setCookie("jwt", response.data, { path: "/" });
-
-    //         })
-    //         .catch((err) => {
-    //             console.error(err);
-    //         });
-    // }
+    useEffect(() => {
+        if (isAuthenticated) {
+            nav("/home");
+        }
+    }, [isAuthenticated, nav]);
 
     return (
         <main className="login-register">
@@ -58,8 +54,8 @@ const LoginPage = () => {
             </footer>
 
             <ModalBG show={showSignin || showRegister} onClose={() => {setShowRegister(false); setShowSignin(false)}}/>
-            <Register show={showRegister} onClose={() => {setShowRegister(false)}}/>
-            <Login show={showSignin} onClose={() => {setShowSignin(false)}}/>
+            <Register show={showRegister} onClose={() => {setShowRegister(false)}} setIsAuthenticated={setIsAuthenticated}/>
+            <Login show={showSignin} onClose={() => {setShowSignin(false)}} setIsAuthenticated={setIsAuthenticated}/>
         </main>
     );
 }
