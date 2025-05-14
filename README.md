@@ -4,7 +4,6 @@ A clone of Twitter (now X but that nobody calls it that) using SQL, Java Spring,
 (I hope this goes without saying but this is a personal project to learn and consolidate technical skills.)
 
 ## Planned features (may change)
-- Stateless security/authentication allowing users to make an account and log in to it in order to use account-specific features
 - Users can have a unique handle and a non-unique, optional display name
 - Users can change their display name, handle, and some other info
 - Users can follow and block(+mute) other users
@@ -19,4 +18,4 @@ A clone of Twitter (now X but that nobody calls it that) using SQL, Java Spring,
 - Users can reply to tweets
 
 ## Implemented features
--  Can now register from the frontend
+- Stateless security/authentication allowing users to make an account and log in to it in order to use account-specific features
