@@ -16,7 +16,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
 
 
-
+/**
+ * Controller for user-related API, not including registration or authentication.
+ */
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/users")

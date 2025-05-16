@@ -1,5 +1,6 @@
 import React from "react";
 
+// Background for modals, makes it possible to close the modal by clicking the background
 const ModalBG = ({ show, onClose }) => {
     if (!show) return null; 
 

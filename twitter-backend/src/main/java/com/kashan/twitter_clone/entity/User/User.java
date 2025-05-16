@@ -32,7 +32,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+/**
+ * Representation of a user for the database.
+ * Implements UserDetails.
+ */
 @Data
 @Getter
 @Setter
@@ -41,27 +44,51 @@ import lombok.Setter;
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "handle"))
 public class User implements UserDetails {
+    // TODO Align lengths with the frontend
+
+    /**
+     * Unique ID of user, primary key.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
+    /**
+     * Password of user, non-nullable.
+     */
     @Column(name = "password", nullable = false)
     private String password;
 
+    // TODO make sure this is actually unique
+    /**
+     * Handle of user, unique, non-nullable, max length of 16.
+     */
     @Column(name = "handle", nullable = false, length = 16)
     private String handle;
 
+    /**
+     * Display name of user, nullable, max length of 50.
+     */
     @Column(name = "display_name", nullable = true, length = 50)
     private String displayName;
 
+    /**
+     * Role of user, non-nullable.
+     */
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserRole role;
 
+    /**
+     * Date that account was created, non-nullable.
+     */
     @Column(name = "creation", nullable = false)
     private LocalDate creationDateTime;
     
+    // TODO Shouldn't be nullable
+    /**
+     * Birth date of user, nullable.
+     */
     @Column(name = "birth_date", nullable = true)
     private LocalDate birthDate;
 
@@ -110,7 +137,10 @@ public class User implements UserDetails {
 
     // Inverse mapping-- done on Tweet entity
 
-    // For mapping user from DTO
+    /**
+     * Constructor, converts UserDTO to User
+     * @param u a UserDTO.
+     */
     public User(UserDTO u) {
         this.id = u.getId();
         this.password = u.getPassword();

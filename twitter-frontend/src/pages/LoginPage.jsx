@@ -13,6 +13,7 @@ const LoginPage = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const nav = useNavigate();
 
+    // Checks if the user has been authenticated, when updated by modals the user is redirected to home page
     useEffect(() => {
         if (isAuthenticated) {
             nav("/home");

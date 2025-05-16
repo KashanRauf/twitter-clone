@@ -63,9 +63,15 @@ button:focus-visible {
   }
 }
 
-.login-register {
+/* GENERAL */
+main {
   width: 100vw;
   height: 100vh;
+}
+
+/* LOGIN AND REGISTRATION- MAY WANT TO ORGANIZE AND STREAMLINE */
+
+.login-register {
   display: flex;
   flex-direction: column;
 
@@ -446,4 +452,121 @@ button:focus-visible {
       border-color: #1d9bf0 !important;
     }
   }
+}
+
+/* HOME PAGE */
+.home-page {
+  width: 70vw;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 15vw 35vw 20vw;
+  grid-template-rows: auto;
+}
+
+.home-left {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* align-items: right ; */
+
+  & div {
+    margin-left: 15%;
+    /* margin-right: 15%; */
+  }
+}
+
+.sidebar-items {
+  list-style: none;
+
+  & .sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    padding-right: .8em;
+    margin: 1.5rem 0;
+    width: min-content;
+
+    &:hover {
+      background-color: #f9f9f936;
+      border-radius: 28px;
+      cursor: pointer;
+    }
+
+    & * {
+      display: inline-block;
+    }
+
+    & p {
+      font-size: 22px;
+      margin-left: 12px;
+      margin-bottom: 0;
+      display: inline;
+    }
+  }
+}
+
+.sidebar-profile {
+  & img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  margin-bottom: 1.5rem;
+}
+
+.home-timeline {
+  height: 100%;
+  border-left: solid 1px #f9f9f97f;
+  border-right: solid 1px #f9f9f97f;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 7fr 14fr 64fr;
+}
+
+.feed-select {
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  border-bottom: solid 1px #f9f9f97f;
+
+  & .feed-select-all, & .feed-select-follow {
+    height: 100%;
+    width: 100%;
+    display: flex;
+
+    &:hover {
+      background-color: #f9f9f936;
+    }
+
+    & > div {
+      width: 100%;
+      text-align: center;
+      align-content: center;
+    }
+  }
+
+  & .feed-select-all {
+    grid-column: 1 / 2;
+    grid-row: 1;
+  }
+
+  & .feed-select-follow {
+    grid-column: 2 / 3;
+    grid-row: 1;
+  }
+}
+
+.home-new-status {
+  border-bottom: solid 1px #f9f9f97f;
+}
+
+.feed-posts {
+  /* border: solid 1px blue; */
+}
+
+.home-right {
+  height: 100%;
 }

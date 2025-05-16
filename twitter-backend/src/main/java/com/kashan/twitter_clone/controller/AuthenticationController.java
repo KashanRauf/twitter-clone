@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
+/**
+ * Controller for authentication-related API
+ */
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor

@@ -5,6 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+/**
+ * The response to a successful authentication, consists of a JWT represented as a String.
+ */
 @Data
 @Builder
 @AllArgsConstructor

@@ -4,7 +4,6 @@ A clone of Twitter (now X but that nobody calls it that) using SQL, Java Spring,
 (I hope this goes without saying but this is a personal project to learn and consolidate technical skills.)
 
 ## Planned features (may change)
-- Users can have a unique handle and a non-unique, optional display name
 - Users can change their display name, handle, and some other info
 - Users can follow and block(+mute) other users
 - Users can write text posts (tweets) with gifs but no photos/videos (subject to change)
@@ -16,6 +15,9 @@ A clone of Twitter (now X but that nobody calls it that) using SQL, Java Spring,
 - Tweets can have tags
 - Users can retweet or quote-retweet
 - Users can reply to tweets
+- Emotes: Like Discord where specific strings translate to an emoji
+    - May extend further into a text formatting system like Discord's
 
 ## Implemented features
+- Users can have a unique handle and a non-unique, optional display name
 - Stateless security/authentication allowing users to make an account and log in to it in order to use account-specific features

@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * The request made to attempt authentication, consists of handle and password as Strings.
+ */
 @Data
 @Builder
 @AllArgsConstructor

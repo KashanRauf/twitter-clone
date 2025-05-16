@@ -5,6 +5,7 @@ import { IoIosInformationCircle, IoMdClose } from "react-icons/io";
 import { LuRabbit } from "react-icons/lu";
 import AuthContext from "../context/AuthProvider";
 
+// Login modal
 const Login = ({ show, onClose, setIsAuthenticated }) => {
     const { setAuth } = useContext(AuthContext);
     const [handle, setHandle] = useState("");
@@ -13,6 +14,7 @@ const Login = ({ show, onClose, setIsAuthenticated }) => {
 
     const userRef = useRef();
 
+    // Sends username/password to backend to attempt sign in
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -24,7 +26,7 @@ const Login = ({ show, onClose, setIsAuthenticated }) => {
         await axios
             .post("http://127.0.0.1:8080/api/auth/authenticate", data)
             .then((response) => {
-                // console.log(response);
+                // Adds token to authentication context and triggers redirect
                 const token = response?.data?.token;
                 setAuth({ token });
                 setIsAuthenticated(true);

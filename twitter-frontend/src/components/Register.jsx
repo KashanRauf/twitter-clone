@@ -1,6 +1,5 @@
 import { parseDate, today } from "@internationalized/date";
 import axios from "axios";
-// import { jwtDecode } from "jwt-decode";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Button, Calendar, CalendarCell, CalendarGrid, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Popover } from 'react-aria-components';
 import { IoIosInformationCircle, IoMdClose } from "react-icons/io";
@@ -8,39 +7,36 @@ import { IconContext } from "react-icons/lib";
 import { LuRabbit } from "react-icons/lu";
 import AuthContext from "../context/AuthProvider";
 
+// Regular expressions for form verification
+// TODO Secure against SQL injection and whatnot (if necessary)
 const handle_regex = /^[a-zA-Z][a-zA-Z0-9-_]{3,15}$/;                           // 4-16 chars, must start with a letter
 const pwd_regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%()]).{8,24}$/;  // 8-24 chars, has a lowercase char, uppercase char, digit, and special char
-const display_regex = /^.{1,32}$/;
+const display_regex = /^.{1,32}$/;                                              // Upto 32 characters, no restriction
 
 const Register = ({ show, onClose, setIsAuthenticated }) => {
     const { setAuth } = useContext(AuthContext);
 
-    // Fields for form: Handle, password, display name (optional), birth date (must be older than 13)
     const userRef = useRef();
-
+    
+    // Fields for form: Handle, password, display name (optional), birth date (must be older than 13)
     const [handle, setHandle] = useState("");
     const [validHandle, setValidHandle] = useState(false);
-    // const [handleFocus, setHandleFocus] = useState(false);
 
     const [pwd, setPwd] = useState("");
     const [validPwd, setValidPwd] = useState(false);
-    // const [pwdFocus, setPwdFocus] = useState(false);
 
     const [matchPwd, setMatchPwd] = useState("");
     const [validMatchPwd, setValidMatchPwd] = useState(false);
-    // const [matchPwdFocus, setMatchPwdFocus] = useState(false);
 
     const [display, setDisplay] = useState("");
     const [validDisplay, setValidDisplay] = useState(false);
-    // const [displayFocus, setDisplayFocus] = useState(false);
 
     const [bdate, setBDate] = useState(parseDate("2025-05-11"));
     const [validBDate, setValidBDate] = useState(false);
-    // const [bdateFocus, setBDateFocus] = useState(false);
 
     const [errMsg, setErrMsg] = useState("");
-    // const [success, setSuccess] = useState(false);
 
+    // Hooks check that the given information is valid
     useEffect(() => {
         const res = handle_regex.test(handle);
         setValidHandle(res);
@@ -81,9 +77,6 @@ const Register = ({ show, onClose, setIsAuthenticated }) => {
             const res = given.compare(cur) <= 0;
 
             setValidBDate(res);
-            // console.log(res + " " + given.compare(cur));
-            // console.log(given);
-            // console.log(cur);
         
         // eslint-disable-next-line no-unused-vars
         } catch (error) {
@@ -93,6 +86,7 @@ const Register = ({ show, onClose, setIsAuthenticated }) => {
         }
     }, [bdate]);
 
+    // Based on what fields are valid, sets an appropriate error message.
     useEffect(() => {
         if (!validHandle) {
             setErrMsg("Handle must be between 4-16 characters in length. May only use alphanumeric characters, underscore (_), or period (.), must start with an a letter.");
@@ -109,10 +103,12 @@ const Register = ({ show, onClose, setIsAuthenticated }) => {
         }
     }, [validHandle, validPwd, validMatchPwd, validDisplay, validBDate]);
 
+    // Checks that all fields are valid.
     const submitReady = () => {
         return validHandle && validPwd && validMatchPwd && validBDate && validDisplay;
     }
 
+    // Sends data to backend to attempt registration
     const handleRegister = async (e) => {
         e.preventDefault();
         if (!submitReady()) {
@@ -141,14 +137,13 @@ const Register = ({ show, onClose, setIsAuthenticated }) => {
         await axios
             .post("http://127.0.0.1:8080/api/auth/register", data)
             .then((response) => {
-                // Store the token somewhere and navigate to home page
+                // Adds token to authentication context and triggers redirect
                 console.log(response);
                 const token = response?.data?.token;
                 setAuth({ token });
                 setIsAuthenticated(true);
             }).catch((error) => {
                 console.error(error);
-                // idk??
                 if (!error?.response) {
                     setErrMsg("No response.");
                 } else if (error.response?.status === 400) {
@@ -177,32 +172,27 @@ const Register = ({ show, onClose, setIsAuthenticated }) => {
                 <div className="register-form-pair">
                     <label htmlFor="handle">Handle</label>
                     <input id="handle" name="handle" type="text" ref={userRef} autoComplete="off"
-                        required /*onFocus={() => setHandleFocus(true)} onBlur={() => setHandleFocus(false)}*/
-                        value={handle} onChange={(e) => { setHandle(e.target.value) }} />
+                        required value={handle} onChange={(e) => { setHandle(e.target.value) }} />
                 </div>
                 <div className="register-form-pair">
                     <label htmlFor="display">Display name (optional)</label>
                     <input id="display" name="display" type="text" autoComplete="off"
-                        /*onFocus={() => setDisplayFocus(true)} onBlur={() => setDisplayFocus(false)}*/
                         value={display} onChange={(e) => { setDisplay(e.target.value) }} />
                 </div>
                 <div className="register-form-pair">
                     <label htmlFor="pwd">Password</label>
                     <input id="pwd" name="pwd" type="password"
-                        required /*onFocus={() => setPwdFocus(true)} onBlur={() => setPwdFocus(false)}*/
-                        value={pwd} onChange={(e) => { setPwd(e.target.value) }} />
+                        required value={pwd} onChange={(e) => { setPwd(e.target.value) }} />
                 </div>
                 <div className="register-form-pair">
                     <label htmlFor="confirm">Confirm password</label>
                     <input id="confirm" name="confirm" type="password"
-                        required /*onFocus={() => setMatchPwdFocus(true)} onBlur={() => setMatchPwdFocus(false)}*/
-                        value={matchPwd} onChange={(e) => { setMatchPwd(e.target.value) }} />
+                        required value={matchPwd} onChange={(e) => { setMatchPwd(e.target.value) }} />
                 </div>
                 <div className="register-form-pair">
                     <label htmlFor="bdate">Date of birth</label>
-                    <DatePicker aria-label="Date of birth" value={bdate} onChange={setBDate}
-                        isRequired /*onFocus={() => setBDateFocus(true)} onBlur={() => setBDateFocus(false)}*/
-                        maxValue={today("EST")}>
+                    <DatePicker aria-label="Date of birth" value={bdate}
+                        onChange={setBDate} isRequired maxValue={today("EST")}>
                         <Group>
                             <DateInput >
                                 {(segment) => <DateSegment segment={segment} />}
