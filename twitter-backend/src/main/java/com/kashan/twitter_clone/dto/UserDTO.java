@@ -1,7 +1,9 @@
 package com.kashan.twitter_clone.dto;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.kashan.twitter_clone.entity.Tweet.Tweet;
@@ -24,12 +26,12 @@ public class UserDTO {
     private UserRole role;
     private LocalDate creationDateTime;
     private LocalDate birthDate;
-    private Set<Tweet> tweets = new HashSet<>();
-    private Set<User> following = new HashSet<>();
-    private Set<User> blocked = new HashSet<>();
-    private Set<Tweet> likes = new HashSet<>();
-    private Set<Tweet> bookmarks = new HashSet<>();
-    private Set<User> followers = new HashSet<>();
+    private List<Tweet> tweets = new ArrayList<>();
+    private List<User> following = new ArrayList<>();
+    private List<User> blocked = new ArrayList<>();
+    private List<Tweet> likes = new ArrayList<>();
+    private List<Tweet> bookmarks = new ArrayList<>();
+    private List<User> followers = new ArrayList<>();
 
     /* I should learn if this is the exact same as using a mapper and how it is secure */
 
@@ -42,11 +44,11 @@ public class UserDTO {
         this.role = u.getRole();
         this.creationDateTime = u.getCreationDateTime();
         this.birthDate = u.getBirthDate();
-        this.tweets = new HashSet<>(u.getTweets());
-        this.following = new HashSet<>(u.getFollowing());
-        this.blocked = new HashSet<>(u.getBlocked());
-        this.likes = new HashSet<>(u.getLikes());
-        this.bookmarks = new HashSet<>(u.getBookmarks());
-        this.followers = new HashSet<>(u.getFollowers());
+        this.tweets = new ArrayList<>(u.getTweets());
+        this.following = new ArrayList<>(u.getFollowing());
+        this.blocked = new ArrayList<>(u.getBlocked());
+        this.likes = new ArrayList<>(u.getLikes());
+        this.bookmarks = new ArrayList<>(u.getBookmarks());
+        this.followers = new ArrayList<>(u.getFollowers());
     }
 }

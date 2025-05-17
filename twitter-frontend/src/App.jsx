@@ -4,7 +4,6 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import AuthContext from "./context/AuthProvider";
-// import { jwtDecode } from "jwt-decode";
 
 function App() {
     const { auth } = useContext(AuthContext);
@@ -18,10 +17,6 @@ function App() {
             nav("/login");
         }
     }, [loc, nav, auth]);
-
-    // useEffect(() => {
-    //     console.log(jwtDecode(auth.token))
-    // }, [auth]);
 
     return (
         <Routes>

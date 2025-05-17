@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { IconContext } from "react-icons/lib";
 import { LuRabbit } from "react-icons/lu";
 import { IoMdBookmark, IoMdHeart, IoMdHome, IoMdPerson, IoMdSearch, IoMdExit, IoMdAdd } from "react-icons/io";
 import ProfilePic from "../components/ProfilePic";
+import AuthContext from "../context/AuthProvider";
 
 const Home = () => {
+    const { auth } = useContext(AuthContext);
+
     // 0 = All, 1 = Following
     const [selectedFeed, setSelectedFeed] = useState(0);
     const [statusText, setStatusText] = useState("");
@@ -67,12 +70,9 @@ const Home = () => {
                 <div className="sidebar-profile">
                     <div className="profile-items">
                         <ProfilePic/>
-                        { /* Extract display name and check if it isn't empty, display */
-                            /* If no display name then show only handle */
-                        }
                         <div>
-                            <p className="display-name">Display Name</p>
-                            <p className="handle">@handle</p>
+                            <p className="display-name">{auth.display}</p>
+                            <p className="handle">{"@" + auth.handle}</p>
                         </div>
                     </div>
                     
@@ -99,7 +99,7 @@ const Home = () => {
                     <ProfilePic/>
                     <input type="text" className="new-status-field" value={statusText}
                         onChange={(e) => setStatusText(e.target.value)}/>    
-                    <div class="status-extras">
+                    <div className="status-extras">
                         {/* Buttons to add GIF, emoji, etc. */}
                         <span>a </span>
                         <span>a </span>

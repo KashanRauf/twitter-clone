@@ -1,6 +1,7 @@
 package com.kashan.twitter_clone.entity.User;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kashan.twitter_clone.dto.UserDTO;
 import com.kashan.twitter_clone.entity.Tweet.Tweet;
 
@@ -94,7 +96,8 @@ public class User implements UserDetails {
 
     // For user's tweet's
     @OneToMany(mappedBy = "user")
-    private Set<Tweet> tweets = new HashSet<>();
+    @JsonManagedReference
+    private List<Tweet> tweets = new ArrayList<>();
 
     /* User relations */
     // Mapping
@@ -104,7 +107,7 @@ public class User implements UserDetails {
         joinColumns = @JoinColumn(name = "follower"),
         inverseJoinColumns = @JoinColumn(name = "followed")
     )
-    private Set<User> following = new HashSet<>();
+    private List<User> following = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -112,11 +115,11 @@ public class User implements UserDetails {
         joinColumns = @JoinColumn(name = "blocker"),
         inverseJoinColumns = @JoinColumn(name = "blocked")
     )
-    private Set<User> blocked = new HashSet<>();
+    private List<User> blocked = new ArrayList<>();
 
     // Inverse mapping
     @ManyToMany(mappedBy = "following")
-    private Set<User> followers = new HashSet<>();
+    private List<User> followers = new ArrayList<>();
 
     /* Tweet interactions */
     @ManyToMany
@@ -125,7 +128,7 @@ public class User implements UserDetails {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "tweet_id")
     )
-    private Set<Tweet> likes = new HashSet<>();
+    private List<Tweet> likes = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -133,7 +136,7 @@ public class User implements UserDetails {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "tweet_id")
     )
-    private Set<Tweet> bookmarks = new HashSet<>();
+    private List<Tweet> bookmarks = new ArrayList<>();
 
     // Inverse mapping-- done on Tweet entity
 
@@ -149,12 +152,28 @@ public class User implements UserDetails {
         this.role = u.getRole();
         this.creationDateTime = u.getCreationDateTime();
         this.birthDate = u.getBirthDate();
-        this.tweets = new HashSet<>(u.getTweets());
-        this.following = new HashSet<>(u.getFollowing());
-        this.blocked = new HashSet<>(u.getBlocked());
-        this.likes = new HashSet<>(u.getLikes());
-        this.bookmarks = new HashSet<>(u.getBookmarks());
-        this.followers = new HashSet<>(u.getFollowers());
+        this.tweets = new ArrayList<>(u.getTweets());
+        this.following = new ArrayList<>(u.getFollowing());
+        this.blocked = new ArrayList<>(u.getBlocked());
+        this.likes = new ArrayList<>(u.getLikes());
+        this.bookmarks = new ArrayList<>(u.getBookmarks());
+        this.followers = new ArrayList<>(u.getFollowers());
+    }
+
+    public User(User u) {
+        this.id = u.getId();
+        this.password = u.getPassword();
+        this.handle = u.getHandle();
+        this.displayName = u.getDisplayName();
+        this.role = u.getRole();
+        this.creationDateTime = u.getCreationDateTime();
+        this.birthDate = u.getBirthDate();
+        this.tweets = new ArrayList<>(u.getTweets());
+        this.following = new ArrayList<>(u.getFollowing());
+        this.blocked = new ArrayList<>(u.getBlocked());
+        this.likes = new ArrayList<>(u.getLikes());
+        this.bookmarks = new ArrayList<>(u.getBookmarks());
+        this.followers = new ArrayList<>(u.getFollowers());
     }
 
     @Override

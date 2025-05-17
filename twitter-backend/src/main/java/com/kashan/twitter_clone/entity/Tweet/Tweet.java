@@ -1,11 +1,13 @@
 package com.kashan.twitter_clone.entity.Tweet;
 
-import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kashan.twitter_clone.dto.TweetDTO;
 import com.kashan.twitter_clone.entity.User.User;
+import com.kashan.twitter_clone.operation.NewTweetRequest;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,13 +47,14 @@ public class Tweet {
 
     @ManyToOne
     @JoinColumn(name = "tweeted_by")
+    @JsonBackReference
     private User user;
 
     @Column(name = "body", nullable = false, length = 140)
     private String body;
 
     @Column(name = "post_date", nullable = false)
-    private Date postDate;
+    private LocalDate postDate;
 
     // @Column(name = "has_gif", nullable = false)
     // private Boolean hasGif;
@@ -74,10 +77,10 @@ public class Tweet {
     // Might be more sensible to just have a counter?
     // Inverse mapping of likes/bookmarks from User entity
     @ManyToMany(mappedBy = "likes")
-    private Set<User> likedBy = new HashSet<>();
+    private List<User> likedBy = new ArrayList<>();
 
     @ManyToMany(mappedBy = "bookmarks")
-    private Set<User> bookmarkedBy = new HashSet<>();
+    private List<User> bookmarkedBy = new ArrayList<>();
 
     // For mapping tweet from DTO
     public Tweet(TweetDTO t) {
@@ -88,7 +91,18 @@ public class Tweet {
         this.gifLink = t.getGifLink();
         this.original = t.getOriginal();
         this.repliesTo = t.getRepliesTo();
-        this.likedBy = new HashSet<>(t.getLikedBy());
-        this.bookmarkedBy = new HashSet<>(t.getBookmarkedBy());
+        this.likedBy = new ArrayList<>(t.getLikedBy());
+        this.bookmarkedBy = new ArrayList<>(t.getBookmarkedBy());
+    }
+
+    public Tweet(NewTweetRequest t, User u) {
+        this.user = u;
+        this.body = t.getBody();
+        this.postDate = LocalDate.now();
+        this.gifLink = t.getGifLink();
+        this.original = t.getOriginal();
+        this.repliesTo = t.getRepliesTo();
+        this.likedBy = new ArrayList<>();
+        this.bookmarkedBy = new ArrayList<>();
     }
 }

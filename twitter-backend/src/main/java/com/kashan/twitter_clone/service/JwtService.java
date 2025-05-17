@@ -21,6 +21,13 @@ public interface JwtService {
     String extractUsername(String token);
 
     /**
+     * Extracts the id of the user from the token.
+     * @param token of an authenticated user.
+     * @return A Long containing the user's id.
+     */
+    Long extractId(String token);
+
+    /**
      * Extracts Claims of type T from the token
      * @param token of an authenticated user.
      * @param claimsResolver a function with a Claims as input, returning a claim of type T.

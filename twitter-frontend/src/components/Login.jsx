@@ -4,6 +4,7 @@ import { IconContext } from "react-icons/lib";
 import { IoIosInformationCircle, IoMdClose } from "react-icons/io";
 import { LuRabbit } from "react-icons/lu";
 import AuthContext from "../context/AuthProvider";
+import { jwtDecode } from "jwt-decode";
 
 // Login modal
 const Login = ({ show, onClose, setIsAuthenticated }) => {
@@ -27,8 +28,14 @@ const Login = ({ show, onClose, setIsAuthenticated }) => {
             .post("http://127.0.0.1:8080/api/auth/authenticate", data)
             .then((response) => {
                 // Adds token to authentication context and triggers redirect
+                console.log(response);
                 const token = response?.data?.token;
-                setAuth({ token });
+                const decoded = jwtDecode(token);
+                const handle = decoded.sub;
+                const display = decoded.display;
+                const bdate = decoded.birthDate;
+
+                setAuth({ token, handle, display, bdate });
                 setIsAuthenticated(true);
             }).catch((error) => {
                 console.error(error);
