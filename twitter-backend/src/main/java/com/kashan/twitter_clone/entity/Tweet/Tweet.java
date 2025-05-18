@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kashan.twitter_clone.dto.TweetDTO;
 import com.kashan.twitter_clone.entity.User.User;
 import com.kashan.twitter_clone.operation.NewTweetRequest;
@@ -47,7 +48,7 @@ public class Tweet {
 
     @ManyToOne
     @JoinColumn(name = "tweeted_by")
-    @JsonBackReference
+    @JsonIgnore
     private User user;
 
     @Column(name = "body", nullable = false, length = 140)

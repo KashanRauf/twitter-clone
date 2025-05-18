@@ -3,14 +3,13 @@ package com.kashan.twitter_clone.entity.User;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kashan.twitter_clone.dto.UserDTO;
 import com.kashan.twitter_clone.entity.Tweet.Tweet;
@@ -96,7 +95,13 @@ public class User implements UserDetails {
 
     // For user's tweet's
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference
+
+
+    // Using this works nicely IMO
+    // When you get the tweet it still gets User data without recursively getting tweets
+    // But when you get the User it recursively gets them in tweet data
+    //      Would prefer just getting Tweet IDs
+    @JsonIgnore 
     private List<Tweet> tweets = new ArrayList<>();
 
     /* User relations */
