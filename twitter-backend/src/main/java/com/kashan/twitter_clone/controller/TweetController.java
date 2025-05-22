@@ -1,5 +1,7 @@
 package com.kashan.twitter_clone.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +20,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/tweets")
-@CrossOrigin
+@CrossOrigin(origins = {"http://127.0.0.1:5173", "http://localhost:5173"})
 public class TweetController {
     private final TweetService tweetService;
 
@@ -36,9 +39,15 @@ public class TweetController {
     @GetMapping("/{id}")
     public ResponseEntity<TweetDTO> getTweet(@PathVariable("id") Long id) {
         TweetDTO t = tweetService.getTweet(id);
-        System.out.println(t.toString());
 
         return ResponseEntity.ok(t);
     }
+
+    @GetMapping
+    public ResponseEntity<List<TweetDTO>> getAllTweets() {
+        List<TweetDTO> all = tweetService.getAllTweets();
+        return ResponseEntity.ok(all);
+    }
+    
     
 }

@@ -1,9 +1,35 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { IconContext } from "react-icons/lib";
 import { LuRabbit } from "react-icons/lu";
 import { IoMdBookmark, IoMdHeart, IoMdHome, IoMdPerson, IoMdSearch, IoMdExit, IoMdAdd } from "react-icons/io";
+import { MdOutlineGifBox, MdOutlineEmojiEmotions } from "react-icons/md";  
+
 import ProfilePic from "../components/ProfilePic";
 import AuthContext from "../context/AuthProvider";
+import FeedTweet from "../components/FeedTweet";
+import axios from "axios";
+
+
+const fetchTweets = async (token, setData, setLoading) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+
+    var data = [];
+
+    await axios
+        .get("http://127.0.0.1:8080/api/tweets", config)
+        .then((response) => {
+            data = response.data;
+        }).catch((error) => {
+            console.log(error);
+        })
+
+    setData(data.reverse());
+    setLoading(false);
+}
 
 const Home = () => {
     const { auth } = useContext(AuthContext);
@@ -11,11 +37,29 @@ const Home = () => {
     // 0 = All, 1 = Following
     const [selectedFeed, setSelectedFeed] = useState(0);
     const [statusText, setStatusText] = useState("");
+    const [feedPosts, setFeedPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const textarea = useRef(null);
+
+    // useEffect(() => {
+    //     // Fetches tweets and updates feed
+    //     // Should they be cached?
+    // }, [selectedFeed]);
 
     useEffect(() => {
-        // Fetches tweets and updates feed
-        // Should they be cached?
-    }, [selectedFeed]);
+        if (!auth?.token) return;
+        fetchTweets(auth.token, setFeedPosts, setLoading);
+        
+    }, [auth.token]);
+
+    useEffect(() => {
+        console.log(feedPosts);
+    }, [feedPosts])
+
+    const heightUpdate = () => {
+        textarea.current.style.height = "inherit";
+        textarea.current.style.height = `${textarea.current.scrollHeight}px`;
+    }
 
     return (
         <main className="home-page">
@@ -60,7 +104,7 @@ const Home = () => {
                         </ul>
                     </li>
                     <button className="post-button white-button">Post</button>
-                    <div className="post-button-alt white-button">
+                    <div className="post-button-alt white-button circular-button">
                         <IconContext.Provider value={{size:"32px"}}>
                             <IoMdAdd color="#1a1a1a" fill="#1a1a1a"/>
                         </IconContext.Provider>
@@ -97,17 +141,29 @@ const Home = () => {
                 </div>
                 <div className="home-new-status">
                     <ProfilePic/>
-                    <input type="text" className="new-status-field" value={statusText}
-                        onChange={(e) => setStatusText(e.target.value)}/>    
+                    <textarea className="new-status-field" value={statusText}
+                        ref={textarea} placeholder="Anything to share?" onChange={(e) => {
+                            setStatusText(e.target.value);
+                            heightUpdate();
+                        }}/>
                     <div className="status-extras">
-                        {/* Buttons to add GIF, emoji, etc. */}
-                        <span>a </span>
-                        <span>a </span>
-                        <span>a </span>
+                        <IconContext.Provider value={{size:"20px"}}>
+                            <span className="circular-button">
+                                <MdOutlineGifBox />
+                            </span>
+                            <span className="circular-button">
+                                <MdOutlineEmojiEmotions/>
+                            </span>
+                        </IconContext.Provider>
                     </div>
                     <button type="button" className="post-status white-button">Post</button>
                 </div>
-                <div className="feed-posts"></div>
+                <div className="feed-posts">
+                    {loading && feedPosts.length > 0 ? 
+                        <p>Loading posts</p> : 
+                        feedPosts.map((item) => <FeedTweet key={item.id} tweet={item}/>)
+                    }
+                </div>
             </div>
 
             <aside className="home-right">

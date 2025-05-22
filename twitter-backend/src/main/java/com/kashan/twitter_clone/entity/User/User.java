@@ -10,7 +10,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kashan.twitter_clone.dto.UserDTO;
 import com.kashan.twitter_clone.entity.Tweet.Tweet;
 
@@ -45,7 +44,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "handle"))
 public class User implements UserDetails {
-    // TODO Align lengths with the frontend
+    // TODO Make it so that user data returned from requests doesn't have password included
 
     /**
      * Unique ID of user, primary key.
@@ -57,10 +56,9 @@ public class User implements UserDetails {
     /**
      * Password of user, non-nullable.
      */
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, length = 24)
     private String password;
 
-    // TODO make sure this is actually unique
     /**
      * Handle of user, unique, non-nullable, max length of 16.
      */
@@ -68,9 +66,9 @@ public class User implements UserDetails {
     private String handle;
 
     /**
-     * Display name of user, nullable, max length of 50.
+     * Display name of user, nullable, max length of 32.
      */
-    @Column(name = "display_name", nullable = true, length = 50)
+    @Column(name = "display_name", nullable = true, length = 32)
     private String displayName;
 
     /**
@@ -86,21 +84,17 @@ public class User implements UserDetails {
     @Column(name = "creation", nullable = false)
     private LocalDate creationDateTime;
     
-    // TODO Shouldn't be nullable
     /**
      * Birth date of user, nullable.
      */
-    @Column(name = "birth_date", nullable = true)
+    @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
     // For user's tweet's
     @OneToMany(mappedBy = "user")
 
 
-    // Using this works nicely IMO
-    // When you get the tweet it still gets User data without recursively getting tweets
-    // But when you get the User it recursively gets them in tweet data
-    //      Would prefer just getting Tweet IDs
+    // TODO May want to add this annotation to other fields in User and Tweet later on
     @JsonIgnore 
     private List<Tweet> tweets = new ArrayList<>();
 

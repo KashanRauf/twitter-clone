@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin
+@CrossOrigin(origins = {"http://127.0.0.1:5173", "http://localhost:5173"})
 public class UserController {
     private UserService userService;
 

@@ -89,8 +89,28 @@ main {
   }
 }
 
-/* LOGIN AND REGISTRATION- MAY WANT TO ORGANIZE AND STREAMLINE */
+.thin-stroke {
+  stroke-width: 1px;
+}
 
+.circular-button {
+  display: flex;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+
+  &:hover {
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  & > * {
+    border-radius: 50%;
+  }
+}
+
+/* LOGIN AND REGISTRATION- MAY WANT TO ORGANIZE AND STREAMLINE */
 .login-register {
   display: flex;
   flex-direction: column;
@@ -526,7 +546,7 @@ main {
     }
 
     & .post-button-alt {
-      display: none;
+      display: none !important;
       border-radius: 50%;
       width: 40px;
       height: 40px;
@@ -625,7 +645,8 @@ main {
   border-right: solid 1px #f9f9f97f;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 7fr 14fr 64fr;
+  grid-template-rows: 75px 14fr 64fr;
+  min-width: 420px;
 }
 
 .feed-select {
@@ -696,6 +717,7 @@ main {
   grid-template-columns: auto 1fr auto;
   grid-template-rows: 1fr auto;
   padding: 16px 12px;
+  padding-bottom: 6px;
   row-gap: 16px;
   column-gap: 8px;
 
@@ -710,6 +732,9 @@ main {
     background-color: transparent;
     border: none;
     outline: none;
+    resize: none;
+    overflow: hidden;
+    font-size: 20px;
 
     &:focus {
       border-bottom: solid 1px #f9f9f926;
@@ -719,6 +744,22 @@ main {
   .status-extras {
     display: flex;
     align-items: center;
+    
+    & > span {
+      width: 32px;
+      height: 32px;
+      padding: 4px;
+      margin-right: 24px;
+      
+      & > svg {
+        fill: #1d9bf0;
+      }
+
+      &:hover {
+        background-color: #1d9bf026;
+        border-radius: 50%;
+      }
+    }
   }
 
   .post-status {
@@ -730,7 +771,128 @@ main {
 }
 
 .feed-posts {
-  /* border: solid 1px blue; */
+  height: 100%;
+  width: 100%;
+  
+  & .feed-post {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr auto;
+    column-gap: 0.8rem;
+    padding: 12px 8px;
+    border-bottom: solid 1px #f9f9f97f;
+    
+    & > img {
+      grid-column: 1;
+      grid-row: 1 / 4;
+    }
+
+    & .circular-button {
+      width: 24px;
+      height: 24px;
+    }
+
+    & .post-info-tb {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    & .post-info-top {
+      grid-column: 2;
+      grid-row: 1;
+      height: 28px;
+
+      & .post-info-main {
+        span {
+          color: #f9f9f97f;
+          margin-right: 6px;
+        }
+
+        a, a:visited {
+          color: #f9f9f9;
+          text-decoration: none;
+        }
+        
+        a:hover {
+          text-decoration: underline;
+        }
+
+        & .post-info-display {
+          color: #f9f9f9;
+          font-weight: 500;
+          margin-right: 8px;
+        }
+
+        & .post-info-button {
+          height: 21px;
+          width: 21px;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    .post-info-aside {
+      margin-right: 8px;
+    }
+    
+    & .post-info-button {
+      &:hover {
+        background-color: #1d9bf026;
+        cursor: pointer;
+
+        & > svg {
+          fill: #1d9bf0;
+        }
+        color: #1d9bf0;
+      }
+
+    }
+
+    & .post-body {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    & .post-info-bottom {
+      grid-column: 2;
+      grid-row: 3;
+      height: 28px;
+
+      & .post-info-main {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        & > * {
+          margin-right: 20%;
+        }
+
+        & .post-interact {
+          display: inline;
+          padding: 2px 6px;
+          border-radius: 48px;
+
+          &:nth-of-type(1):hover {
+            background-color: #228b2226 !important;
+            color: #228b22;
+            & :first-of-type {
+              fill: #228b22 !important;
+            }
+          }
+
+          &:nth-of-type(2):hover {
+            background-color: #d2691e26 !important;
+            color: #d2691e;
+            & :first-of-type {
+              fill: none !important;
+              stroke: #d2691e;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .home-right {

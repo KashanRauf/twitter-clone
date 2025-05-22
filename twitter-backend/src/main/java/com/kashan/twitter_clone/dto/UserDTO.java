@@ -2,9 +2,7 @@ package com.kashan.twitter_clone.dto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.kashan.twitter_clone.entity.Tweet.Tweet;
 import com.kashan.twitter_clone.entity.User.*;

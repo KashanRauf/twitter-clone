@@ -1,6 +1,7 @@
 package com.kashan.twitter_clone.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -50,8 +51,8 @@ public class TweetServiceImpl implements TweetService {
 
     @Override
     public List<TweetDTO> getAllTweets() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllTweets'");
+        List<Tweet> all = repo.findAll();
+        return all.stream().map((t) -> new TweetDTO(t)).collect(Collectors.toList());
     }
 
     // TODO Implement from UserService side
