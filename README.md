@@ -6,8 +6,6 @@ A clone of Twitter (now X but that nobody calls it that) using SQL, Java Spring,
 ## Planned features (may change)
 - Users can change their display name, handle, and some other info
 - Users can follow and block(+mute) other users
-- Users can write text posts (tweets) with gifs but no photos/videos (subject to change)
-- Users can scroll through a feed of all tweets or following tweets
 - Users can like and bookmark tweets, and view them specifically
     - May add the ability to sort to this feature and the above
 - Tweets will consist of text and up to 1 gif
@@ -17,6 +15,15 @@ A clone of Twitter (now X but that nobody calls it that) using SQL, Java Spring,
 - Users can reply to tweets
 - Emotes: Like Discord where specific strings translate to an emoji
     - May extend further into a text formatting system like Discord's
+
+## In Progress
+- Users can scroll through a feed of all tweets or following tweets
+    - Have not yet implemented for following
+- Users can write text posts (tweets) with gifs but no photos/videos (subject to change)
+    - Implemented in the backend, but not yet by the frontend
+    - Tweets don't display gifs yet
+    - Have not tried retweets/replies yet either
+
 
 ## Implemented features
 - Users can have a unique handle and a non-unique, optional display name

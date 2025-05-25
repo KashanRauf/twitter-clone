@@ -1,0 +1,55 @@
+package com.kashan.twitter_clone.exception;
+
+import java.net.http.HttpHeaders;
+import java.sql.SQLIntegrityConstraintViolationException;
+
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.kashan.twitter_clone.operation.ApiErrorResponse;
+
+import io.jsonwebtoken.ExpiredJwtException;
+import jakarta.persistence.EntityNotFoundException;
+
+
+@Order(Ordered.HIGHEST_PRECEDENCE)
+@ControllerAdvice
+public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+    private ResponseEntity<Object> buildResponseEntity(ApiErrorResponse errResponse) {
+        return new ResponseEntity<>(errResponse, errResponse.getStatus());
+    }
+
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+		String message = "Malformed JSON request body.";
+        return buildResponseEntity(new ApiErrorResponse(HttpStatus.BAD_REQUEST, message, ex));
+	}
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    protected ResponseEntity<Object> handleResourceNotFound(EntityNotFoundException ex) {
+        ApiErrorResponse err = new ApiErrorResponse(HttpStatus.NOT_FOUND);
+        err.setErrMessage(ex.getMessage());
+        return buildResponseEntity(err);
+    }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    protected ResponseEntity<Object> handleConstraintViolation(SQLIntegrityConstraintViolationException ex) {
+        ApiErrorResponse err = new ApiErrorResponse(HttpStatus.CONFLICT);
+        err.setErrMessage(ex.getMessage());
+        return buildResponseEntity(err);
+    }
+
+    // Doesn't work error probably needs to be thrown at some point
+    @ExceptionHandler(ExpiredJwtException.class)
+    protected ResponseEntity<Object> handleExpiredJwt(ExpiredJwtException ex) {
+        String message = "Token expired, must sign sign in again.";
+        return buildResponseEntity(new ApiErrorResponse(HttpStatus.UNAUTHORIZED, message, ex));
+    }
+}

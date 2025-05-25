@@ -11,6 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewTweetResponse {
-    // TODO Make it so that requests aren't just fail/succeed, send response codes with meaningful information. Also need to add proper error handling.
     private String info;
 }

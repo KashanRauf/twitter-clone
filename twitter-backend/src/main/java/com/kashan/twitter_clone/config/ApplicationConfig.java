@@ -33,6 +33,8 @@ public class ApplicationConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // Deprecated after upgrading from 3.4.6 to 3.5.0
+    @SuppressWarnings("deprecation")
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();

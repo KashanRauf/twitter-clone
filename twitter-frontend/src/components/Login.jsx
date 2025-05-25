@@ -1,10 +1,11 @@
-import axios from "axios";
 import React, { useRef, useState, useContext } from "react";
 import { IconContext } from "react-icons/lib";
 import { IoIosInformationCircle, IoMdClose } from "react-icons/io";
 import { LuRabbit } from "react-icons/lu";
 import AuthContext from "../context/AuthProvider";
 import { jwtDecode } from "jwt-decode";
+import { authReq, setAuthToken } from "../common/Request";
+
 
 // Login modal
 const Login = ({ show, onClose, setIsAuthenticated }) => {
@@ -24,8 +25,8 @@ const Login = ({ show, onClose, setIsAuthenticated }) => {
             "password": password
         }
 
-        await axios
-            .post("http://127.0.0.1:8080/api/auth/authenticate", data)
+        await authReq
+            .post("authenticate", data)
             .then((response) => {
                 // Adds token to authentication context and triggers redirect
                 console.log(response);
@@ -34,8 +35,9 @@ const Login = ({ show, onClose, setIsAuthenticated }) => {
                 const handle = decoded.sub;
                 const display = decoded.display;
                 const bdate = decoded.birthDate;
-
+    
                 setAuth({ token, handle, display, bdate });
+                setAuthToken(token);
                 setIsAuthenticated(true);
             }).catch((error) => {
                 console.error(error);
@@ -47,6 +49,10 @@ const Login = ({ show, onClose, setIsAuthenticated }) => {
                     setErrMsg("Failed to log in.");
                 }
             });
+
+
+        // await axios
+        //     .post("http://127.0.0.1:8080/api/auth/authenticate", data)
     }
 
     if (!show) return null;

@@ -13,6 +13,7 @@ import com.kashan.twitter_clone.repository.UserRepository;
 import com.kashan.twitter_clone.service.AuthenticationService;
 import com.kashan.twitter_clone.service.JwtService;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -41,8 +42,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             request.getHandle(), request.getPassword()
         ));
 
-        // TODO Use debugging techniques to find out what errors to handle
-        User user = repo.findByHandle(request.getHandle()).orElseThrow();
+        // TODO Test API more extensively to see what kind of errors need to be handled and how
+        User user = repo.findByHandle(request.getHandle()).orElseThrow(() -> new EntityNotFoundException("Could not find user with handle: \"" + request.getHandle() + "\""));
         String token = jwtService.generateToken(user);
         
         return AuthenticationResponse.builder().token(token).build();

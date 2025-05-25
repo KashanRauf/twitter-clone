@@ -1,5 +1,4 @@
 import { parseDate, today } from "@internationalized/date";
-import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Button, Calendar, CalendarCell, CalendarGrid, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Popover } from 'react-aria-components';
 import { IoIosInformationCircle, IoMdClose } from "react-icons/io";
@@ -7,6 +6,7 @@ import { IconContext } from "react-icons/lib";
 import { LuRabbit } from "react-icons/lu";
 import AuthContext from "../context/AuthProvider";
 import { jwtDecode } from "jwt-decode";
+import { authReq, setAuthToken } from "../common/Request";
 
 // Regular expressions for form verification
 // TODO Secure against SQL injection and whatnot (if necessary)
@@ -135,8 +135,8 @@ const Register = ({ show, onClose, setIsAuthenticated }) => {
         };
         // console.log(data);
 
-        await axios
-            .post("http://127.0.0.1:8080/api/auth/register", data)
+        await authReq
+            .post("register", data)
             .then((response) => {
                 // Adds token to authentication context and triggers redirect
                 console.log(response);
@@ -145,8 +145,9 @@ const Register = ({ show, onClose, setIsAuthenticated }) => {
                 const handle = decoded.sub;
                 const display = decoded.display;
                 const bdate = decoded.birthDate;
-
+                
                 setAuth({ token, handle, display, bdate });
+                setAuthToken(token);
                 setIsAuthenticated(true);
             }).catch((error) => {
                 console.error(error);
@@ -160,7 +161,10 @@ const Register = ({ show, onClose, setIsAuthenticated }) => {
                     setErrMsg("Failed to register.")
                 }
             });
-    }
+
+        // await axios
+        //     .post("http://127.0.0.1:8080/api/auth/register", data)
+        }
 
     if (!show) return null;
 

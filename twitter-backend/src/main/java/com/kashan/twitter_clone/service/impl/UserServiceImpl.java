@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.kashan.twitter_clone.dto.UserDTO;
 import com.kashan.twitter_clone.entity.User.User;
-import com.kashan.twitter_clone.exception.ResourceNotFoundException;
 import com.kashan.twitter_clone.repository.UserRepository;
 import com.kashan.twitter_clone.service.UserService;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUser(Long id) {
-        User u = repo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Failed to find user with id: " + id));
+        User u = repo.findById(id).orElseThrow(() -> new EntityNotFoundException("Failed to find user with id: " + id));
         return new UserDTO(u);
     }
 
@@ -44,7 +44,6 @@ public class UserServiceImpl implements UserService {
         // Role changing should be handled from admin-specific endpoints
         // Password changing needs to be handled with care, likely use a different endpoint
 
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'editUser'");
     }
 
@@ -52,7 +51,6 @@ public class UserServiceImpl implements UserService {
     // Also are there security checks that need to be done first?
     @Override
     public void deleteUser(Long id) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteUser'");
     }
     

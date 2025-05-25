@@ -1,31 +1,24 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { IconContext } from "react-icons/lib";
-import { LuRabbit } from "react-icons/lu";
-import { IoMdBookmark, IoMdHeart, IoMdHome, IoMdPerson, IoMdSearch, IoMdExit, IoMdAdd } from "react-icons/io";
 import { MdOutlineGifBox, MdOutlineEmojiEmotions } from "react-icons/md";  
-
 import ProfilePic from "../components/ProfilePic";
 import AuthContext from "../context/AuthProvider";
-import FeedTweet from "../components/FeedTweet";
-import axios from "axios";
+import Feed from "../components/Feed";
+import NavSidebar from "../components/NavSidebar";
+import { tweetReq } from "../common/Request";
 
 
 const fetchTweets = async (token, setData, setLoading) => {
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    };
-
     var data = [];
 
-    await axios
-        .get("http://127.0.0.1:8080/api/tweets", config)
+    await tweetReq
+        .get()
         .then((response) => {
             data = response.data;
         }).catch((error) => {
             console.log(error);
         })
+    
 
     setData(data.reverse());
     setLoading(false);
@@ -63,68 +56,7 @@ const Home = () => {
 
     return (
         <main className="home-page">
-            <header className="home-left">
-                <div>
-                    <li className="sidebar-items">
-                        <ul className="sidebar-item">
-                            <IconContext.Provider value={{ size: "32px" }}>
-                                <LuRabbit />
-                            </IconContext.Provider>
-                            {/* <p></p> */}
-                        </ul>
-                        <ul className="sidebar-item">
-                            <IconContext.Provider value={{ size: "32px" }}>
-                                <IoMdHome />
-                            </IconContext.Provider>
-                            <p>Home</p>
-                        </ul>
-                        <ul className="sidebar-item">
-                            <IconContext.Provider value={{ size: "32px" }}>
-                                <IoMdSearch />
-                            </IconContext.Provider>
-                            <p>Search</p>
-                        </ul>
-                        <ul className="sidebar-item">
-                            <IconContext.Provider value={{ size: "32px" }}>
-                                <IoMdPerson />
-                            </IconContext.Provider>
-                            <p>Profile</p>
-                        </ul>
-                        <ul className="sidebar-item">
-                            <IconContext.Provider value={{ size: "32px" }}>
-                                <IoMdHeart />
-                            </IconContext.Provider>
-                            <p>Likes</p>
-                        </ul>
-                        <ul className="sidebar-item">
-                            <IconContext.Provider value={{ size: "32px" }}>
-                                <IoMdBookmark />
-                            </IconContext.Provider>
-                            <p>Bookmarks</p>
-                        </ul>
-                    </li>
-                    <button className="post-button white-button">Post</button>
-                    <div className="post-button-alt white-button circular-button">
-                        <IconContext.Provider value={{size:"32px"}}>
-                            <IoMdAdd color="#1a1a1a" fill="#1a1a1a"/>
-                        </IconContext.Provider>
-                    </div>
-                </div>
-
-                <div className="sidebar-profile">
-                    <div className="profile-items">
-                        <ProfilePic/>
-                        <div>
-                            <p className="display-name">{auth.display}</p>
-                            <p className="handle">{"@" + auth.handle}</p>
-                        </div>
-                    </div>
-                    
-                    <IconContext.Provider value={{size:"25px"}}>
-                        <IoMdExit/>
-                    </IconContext.Provider>
-                </div>
-            </header>
+            <NavSidebar/>
 
             <div className="home-timeline">
                 <div className="feed-select">
@@ -158,16 +90,11 @@ const Home = () => {
                     </div>
                     <button type="button" className="post-status white-button">Post</button>
                 </div>
-                <div className="feed-posts">
-                    {loading && feedPosts.length > 0 ? 
-                        <p>Loading posts</p> : 
-                        feedPosts.map((item) => <FeedTweet key={item.id} tweet={item}/>)
-                    }
-                </div>
+                <Feed postList={feedPosts} isLoading={loading}/>
             </div>
 
             <aside className="home-right">
-
+                {/* Maybe put most followed users or most liked posts? */}
             </aside>
         </main>
     );

@@ -6,9 +6,7 @@ import { BiCommentDetail, BiBookmark } from "react-icons/bi";
 import { LuCarrot } from "react-icons/lu";
 
 
-const FeedTweet = (data) => {
-
-  const tweet = data.tweet
+const FeedTweet = ({tweet}) => {
   
   return (
     <div className="feed-post">

@@ -503,13 +503,13 @@ main {
   grid-template-rows: auto;
 }
 
-.home-left {
+.nav-sidebar {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 1.5rem 0.5rem;
   margin-left: 3rem;
-  container-name: homeLeft;
+  container-name: navbar;
   container-type: inline-size;
   align-items: flex-end;
 
@@ -597,8 +597,8 @@ main {
   }
 }
 
-@container homeLeft (max-width: 140px) {
-  .home-left {
+@container navbar (max-width: 140px) {
+  .nav-sidebar {
     p {
       display: none;
     }

@@ -11,9 +11,11 @@ import com.kashan.twitter_clone.dto.TweetDTO;
 import com.kashan.twitter_clone.repository.TweetRepository;
 import com.kashan.twitter_clone.service.JwtService;
 import com.kashan.twitter_clone.service.TweetService;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import com.kashan.twitter_clone.entity.Tweet.Tweet;
 import com.kashan.twitter_clone.entity.User.User;
-import com.kashan.twitter_clone.exception.ResourceNotFoundException;
 import com.kashan.twitter_clone.operation.NewTweetRequest;
 
 import lombok.AllArgsConstructor;
@@ -45,7 +47,7 @@ public class TweetServiceImpl implements TweetService {
 
     @Override
     public TweetDTO getTweet(Long id) {
-        Tweet t = repo.findById(id).orElseThrow(() -> new ResourceNotFoundException("No tweet with id " + id));
+        Tweet t = repo.findById(id).orElseThrow(() -> new EntityNotFoundException("No tweet with id: " + id));
         return new TweetDTO(t);
     }
 
