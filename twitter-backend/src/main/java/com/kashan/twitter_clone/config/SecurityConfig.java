@@ -27,7 +27,7 @@ public class SecurityConfig {
             .cors(Customizer.withDefaults())
             .authorizeHttpRequests(requests -> requests
                     // For requests that don't need authentication
-                    .requestMatchers("/api/auth/**")
+                    .requestMatchers("/api/auth/**", "/api/test/**")
                     .permitAll()
                     // For requests that only authenticated users can perform
                     .anyRequest()

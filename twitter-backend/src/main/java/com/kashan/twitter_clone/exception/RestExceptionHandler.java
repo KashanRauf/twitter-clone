@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -46,10 +47,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(err);
     }
 
-    // Doesn't work error probably needs to be thrown at some point
+    // TODO Figure out how to handle excpetions in filters
     @ExceptionHandler(ExpiredJwtException.class)
     protected ResponseEntity<Object> handleExpiredJwt(ExpiredJwtException ex) {
         String message = "Token expired, must sign sign in again.";
         return buildResponseEntity(new ApiErrorResponse(HttpStatus.UNAUTHORIZED, message, ex));
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    protected ResponseEntity<Object> handleAccessDenied(AccessDeniedException ex) {
+        return buildResponseEntity(new ApiErrorResponse(HttpStatus.UNAUTHORIZED, ex));
     }
 }
