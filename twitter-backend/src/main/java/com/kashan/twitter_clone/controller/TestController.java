@@ -1,12 +1,12 @@
 package com.kashan.twitter_clone.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
-// TODO: Comment out or delete this file
+// Used solely for testing
 @Controller
 @RequestMapping("/api/test")
 public class TestController {

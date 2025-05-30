@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-@JsonIgnoreProperties("timestamp") // TODO: This can probably be used on User/UserDTO/etc. (whichever I need to use it on) to prevent passwords serializing
+@JsonIgnoreProperties("timestamp")
 public class ApiErrorResponse {
     private HttpStatus status;
     @JsonFormat

@@ -7,9 +7,9 @@ import java.util.List;
 import com.kashan.twitter_clone.entity.Tweet.Tweet;
 import com.kashan.twitter_clone.entity.User.User;
 
+import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -18,14 +18,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TweetDTO {
     private Long id;
-    private User user;
+    private UserDTO user;
     private String body;
     private LocalDate postDate;
-    // private Boolean hasGif;
     private String gifLink;
-    // private Boolean isRetweet;
     private Long original;
-    // private Boolean isReply;
     private Long repliesTo;
     private List<User> likedBy = new ArrayList<>();
     private List<User> bookmarkedBy = new ArrayList<>();
@@ -33,8 +30,7 @@ public class TweetDTO {
     // For mapping DTO from tweet
     public TweetDTO(Tweet t) {
         this.id = t.getId();
-        // Causes a ConcurrentModificationException
-        this.user = new User(t.getUser());
+        this.user = new UserDTO(t.getUser());
         this.body = t.getBody();
         this.postDate = t.getPostDate();
         this.gifLink = t.getGifLink();

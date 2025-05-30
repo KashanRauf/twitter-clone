@@ -32,6 +32,7 @@ public class SecurityConfig {
                     // For requests that only authenticated users can perform
                     .anyRequest()
                     .authenticated())
+                    // Can use .hasRole() for admin-only operations
             .sessionManagement(management -> management
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider)

@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kashan.twitter_clone.dto.UserDTO;
 import com.kashan.twitter_clone.entity.Tweet.Tweet;
 
@@ -55,8 +56,9 @@ public class User implements UserDetails {
     private Long id;
     /**
      * Password of user, non-nullable.
+     * Has a length of 60 since it uses BCrypt $2a$
      */
-    @Column(name = "password", nullable = false, length = 24)
+    @Column(name = "password", nullable = false, length = 60)
     private String password;
 
     /**
@@ -159,6 +161,7 @@ public class User implements UserDetails {
         this.followers = new ArrayList<>(u.getFollowers());
     }
 
+    // Copy constructor
     public User(User u) {
         this.id = u.getId();
         this.password = u.getPassword();

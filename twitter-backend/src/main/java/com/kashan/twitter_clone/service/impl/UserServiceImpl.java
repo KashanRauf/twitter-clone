@@ -18,13 +18,6 @@ import lombok.AllArgsConstructor;
 public class UserServiceImpl implements UserService {
     private UserRepository repo;
 
-    // Now provided by AuthenticationService's registerNewUser()
-    // @Override
-    // public UserDTO createUser(UserDTO u) {
-    //     User saved = repo.save(new User(u));
-    //     return new UserDTO(saved);
-    // }
-
     @Override
     public UserDTO getUser(Long id) {
         User u = repo.findById(id).orElseThrow(() -> new EntityNotFoundException("Failed to find user with id: " + id));
@@ -47,8 +40,7 @@ public class UserServiceImpl implements UserService {
         throw new UnsupportedOperationException("Unimplemented method 'editUser'");
     }
 
-    // More on the DB side, but what should be done with deleted user data?
-    // Also are there security checks that need to be done first?
+    // Consider any security checks that need to be done first
     @Override
     public void deleteUser(Long id) {
         throw new UnsupportedOperationException("Unimplemented method 'deleteUser'");

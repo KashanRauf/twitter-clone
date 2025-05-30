@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-abstract class ApiSubError {
-    
-}
+abstract class ApiSubError {}
 
 @Data
 @EqualsAndHashCode(callSuper = false)

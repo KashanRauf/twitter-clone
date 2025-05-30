@@ -24,26 +24,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
-// @Builder
 @Getter
-// Probably shouldn't have setters unless I want to make them editable
-// In which case I should make only specific fields editable (should also apply to other entity classes btw)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-// @IdClass(TweetID.class)
 @Table(name = "tweet")
 public class Tweet {
-    // Booleans redundant since I can just check if null, commented out
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
-    // @Id
-    // @Column(name = "tweeted_by", nullable = false)
-    // private Long user;
 
     @ManyToOne
     @JoinColumn(name = "tweeted_by")
@@ -56,25 +46,15 @@ public class Tweet {
     @Column(name = "post_date", nullable = false)
     private LocalDate postDate;
 
-    // @Column(name = "has_gif", nullable = false)
-    // private Boolean hasGif;
-
     @Column(name = "gif_link", nullable = true)
     private String gifLink;
-
-    // @Column(name = "is_retweet", nullable = false)
-    // private Boolean isRetweet;
 
     @Column(name = "original", nullable = true)
     private Long original;
 
-    // @Column(name = "is_reply", nullable = false)
-    // private Boolean isReply;
-
     @Column(name = "replies_to", nullable = true)
     private Long repliesTo;
 
-    // Might be more sensible to just have a counter?
     // Inverse mapping of likes/bookmarks from User entity
     @ManyToMany(mappedBy = "likes")
     private List<User> likedBy = new ArrayList<>();
@@ -85,7 +65,7 @@ public class Tweet {
     // For mapping tweet from DTO
     public Tweet(TweetDTO t) {
         this.id = t.getId();
-        this.user = t.getUser();
+        this.user = new User(t.getUser());
         this.body = t.getBody();
         this.postDate = t.getPostDate();
         this.gifLink = t.getGifLink();

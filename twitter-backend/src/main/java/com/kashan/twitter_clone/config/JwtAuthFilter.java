@@ -42,22 +42,19 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final String token;
         final String userHandle;
 
-        // Checks authHeader
+        // Preliminary check if there is any Bearer token
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
         try {
-            // Attempts to extract token, 7 because that's where the token starts after
-            // "Bearer "
+            // Attempts to extract token, 7 because that's where the token starts after "Bearer "
             token = authHeader.substring(7);
             userHandle = jwtService.extractUsername(token); // Throws a SignatureException or ExpiredJwtException
 
             if (userHandle != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails user = this.userDetailsService.loadUserByUsername(userHandle);
-                System.out.println(userHandle);
-                System.out.println(user.getUsername());
 
                 // If the token is valid, updates the security context holder, otherwise it drops a nuclear bomb (throws AccessDenied)
                 jwtService.validTokenOrElseThrow(token, user);
@@ -74,7 +71,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             ResponseEntity<Object> exResponse = exceptionHandler.handleExpiredJwt(new ExpiredJwtException(null, null, "Token has expired"));
             doErrResponse(response, exResponse);
         } catch (AccessDeniedException e) {
-            // Not throwing because it only checks the validity of username?
+            // TODO Not throwing because it only checks the validity of username?
             ResponseEntity<Object> exResponse = exceptionHandler.handleAccessDenied(new AccessDeniedException("Token is invalid."));
             doErrResponse(response, exResponse);
         }
