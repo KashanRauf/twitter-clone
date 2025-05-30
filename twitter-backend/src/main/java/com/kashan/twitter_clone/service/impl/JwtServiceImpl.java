@@ -7,6 +7,7 @@ import java.util.function.Function;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +15,11 @@ import com.kashan.twitter_clone.entity.User.User;
 import com.kashan.twitter_clone.service.JwtService;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -27,7 +30,7 @@ public class JwtServiceImpl implements JwtService {
     private static final String SECRET_KEY = "035a8ce1977410801941d2f9e7c9d91e5f4d40d235e41c898e2c6511308c8eef";
 
     @Override
-    public String extractUsername(String token) {
+    public String extractUsername(String token) throws SignatureException, ExpiredJwtException {
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -69,6 +72,14 @@ public class JwtServiceImpl implements JwtService {
     public boolean isTokenValid(String token, UserDetails user) {
         final String username = extractUsername(token);
         return username.equals(user.getUsername()) && !isTokenExpired(token);
+    }
+
+    public boolean validTokenOrElseThrow(String token, UserDetails user) throws AccessDeniedException {
+        if (!isTokenValid(token, user)) {
+            throw new AccessDeniedException("Token is invalid.");
+        }
+
+        return true;
     }
 
     public boolean isTokenExpired(String token) {

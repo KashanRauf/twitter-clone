@@ -15,15 +15,28 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.kashan.twitter_clone.operation.ApiErrorResponse;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.persistence.EntityNotFoundException;
 
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+    private static ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+    public static String responseEntityToJson(ResponseEntity<Object> entity) throws JsonProcessingException {
+        if (entity == null) {
+            return null;
+        }
+
+        return mapper.writeValueAsString(entity);
+    }
+
     private ResponseEntity<Object> buildResponseEntity(ApiErrorResponse errResponse) {
         return new ResponseEntity<>(errResponse, errResponse.getStatus());
     }
@@ -49,13 +62,18 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     // TODO Figure out how to handle excpetions in filters
     @ExceptionHandler(ExpiredJwtException.class)
-    protected ResponseEntity<Object> handleExpiredJwt(ExpiredJwtException ex) {
+    public ResponseEntity<Object> handleExpiredJwt(ExpiredJwtException ex) {
         String message = "Token expired, must sign sign in again.";
         return buildResponseEntity(new ApiErrorResponse(HttpStatus.UNAUTHORIZED, message, ex));
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    protected ResponseEntity<Object> handleAccessDenied(AccessDeniedException ex) {
+    public ResponseEntity<Object> handleAccessDenied(AccessDeniedException ex) {
+        return buildResponseEntity(new ApiErrorResponse(HttpStatus.UNAUTHORIZED, ex));
+    }
+
+    @ExceptionHandler(SignatureException.class)
+    public ResponseEntity<Object> handleSignature(SignatureException ex) {
         return buildResponseEntity(new ApiErrorResponse(HttpStatus.UNAUTHORIZED, ex));
     }
 }

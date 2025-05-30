@@ -6,12 +6,14 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@JsonIgnoreProperties("timestamp") // TODO: This can probably be used on User/UserDTO/etc. (whichever I need to use it on) to prevent passwords serializing
 public class ApiErrorResponse {
     private HttpStatus status;
     @JsonFormat

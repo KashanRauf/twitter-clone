@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
@@ -57,6 +58,8 @@ public interface JwtService {
      * @return A boolean, true if the token is valid.
      */
     boolean isTokenValid(String token, UserDetails user);
+
+    boolean validTokenOrElseThrow(String token, UserDetails user) throws AccessDeniedException;
 
     /**
      * Checks if a token has expired.
