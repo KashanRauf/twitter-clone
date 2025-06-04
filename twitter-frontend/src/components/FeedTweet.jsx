@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { IoIosMore, IoMdShare } from "react-icons/io";
 import { BiCommentDetail, BiBookmark } from "react-icons/bi";
 import { LuCarrot } from "react-icons/lu";
+import parseTweet from "../common/ParseTweet";
 
 
 const FeedTweet = ({tweet}) => {
@@ -20,7 +21,7 @@ const FeedTweet = ({tweet}) => {
             <span>·</span>
             <span className="post-info-time">{(new Date(tweet?.postDate)).toLocaleDateString("UTC")}</span>
           </div>
-          <div className="post-info-aside">
+          <div className="post-info-aside hhhh">
             <span className="post-info-button circular-button"
               onClick={() => {/* Open context menu */}}>
                 <IoIosMore/>
@@ -28,8 +29,7 @@ const FeedTweet = ({tweet}) => {
           </div>
         </div>
         <div className="post-body">
-            <p>{tweet?.body}</p>
-            {/* Gif or sm */}
+            {parseTweet(tweet?.body)}
         </div>
         <div className="post-info-tb post-info-bottom">
           <div className="post-info-main">

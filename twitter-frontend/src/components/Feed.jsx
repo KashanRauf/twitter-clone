@@ -1,16 +1,19 @@
 import React from "react";
 import FeedTweet from "./FeedTweet";
+import FeedNewStatus from "./FeedNewStatus";
 
-const Feed = ({postList, isLoading}) => {
+const Feed = ({postList, isLoading, topType}) => {
+    var top = "";
 
-    // if (!(postList && !isLoading)) {
-    //     console.log(postList)
-    //     console.log(isLoading)
-    //     return;
-    // }
+    if (topType == "new-status") {
+        top = <FeedNewStatus borderless={false}/>
+    } else if (topType == "profile") {
+        // Not implemented yet
+    }
 
     return (
         <div className="feed-posts">
+            {top}
             {isLoading && postList.length > 0 ?
                 <p>Loading posts</p> :
                 postList.map((item) => <FeedTweet key={item.id} tweet={item} />)

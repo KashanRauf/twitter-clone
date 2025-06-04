@@ -17,9 +17,10 @@
 
 body {
   margin: 0;
-  min-width: 100vw;
-  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
   background-color: #1a1a1a;
+  overflow: hidden;
 }
 
 h1 {
@@ -43,8 +44,7 @@ button:hover {
   border-color: #646cff;
 }
 
-button:focus,
-button:focus-visible {
+button:focus, button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
@@ -110,12 +110,24 @@ main {
   }
 }
 
-/* LOGIN AND REGISTRATION- MAY WANT TO ORGANIZE AND STREAMLINE */
+.toast-container {
+  width: 35vw !important;
+  inset: unset !important;
+  top: 16px !important;
+  left: 30vw !important;
+  position: absolute !important;
+}
+
+.borderless {
+  border: none !important;
+}
+
+/* LOGIN AND REGISTRATION */
 .login-register {
   display: flex;
   flex-direction: column;
 
-  &>div {
+  & > div {
     flex: 1;
     display: grid;
     height: auto;
@@ -131,8 +143,7 @@ main {
     align-items: center;
     justify-content: space-around;
 
-    & a,
-    a:visited {
+    & a, a:visited {
       font-size: smaller;
       font-weight: 100;
       color: inherit;
@@ -219,6 +230,8 @@ main {
   min-height: 100vh;
   background-color: #0000009a;
   position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .lr-modal {
@@ -640,12 +653,12 @@ main {
 }
 
 .home-timeline {
-  height: 100%;
+  height: 100vh;
   border-left: solid 1px #f9f9f97f;
   border-right: solid 1px #f9f9f97f;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 75px 14fr 64fr;
+  grid-template-rows: 75px auto 1fr;
   min-width: 420px;
 }
 
@@ -656,6 +669,7 @@ main {
   grid-template-rows: 1fr;
   justify-items: center;
   border-bottom: solid 1px #f9f9f97f;
+  position: sticky;
 
   .feed-indicator {
     display: none;
@@ -711,7 +725,7 @@ main {
   }
 }
 
-.home-new-status {
+.feed-new-status {
   border-bottom: solid 1px #f9f9f97f;
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -771,9 +785,10 @@ main {
 }
 
 .feed-posts {
+  overflow: scroll;
+  overflow-x: hidden;
   height: 100%;
-  width: 100%;
-  
+  scrollbar-width: none;
   & .feed-post {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -781,6 +796,10 @@ main {
     column-gap: 0.8rem;
     padding: 12px 8px;
     border-bottom: solid 1px #f9f9f97f;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
     
     & > img {
       grid-column: 1;
@@ -852,6 +871,10 @@ main {
     & .post-body {
       grid-column: 2;
       grid-row: 2;
+
+      span > img {
+        height: 22px;
+      }
     }
 
     & .post-info-bottom {

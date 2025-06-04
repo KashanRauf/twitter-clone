@@ -4,11 +4,14 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
 import { AuthProvider } from "./context/AuthProvider.jsx";
+import { PostModalProvider } from "./context/PostModalProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
     <BrowserRouter>
-       <AuthProvider>
-         <App />
-       </AuthProvider>
+        <PostModalProvider>
+            <AuthProvider>
+                <App />
+            </AuthProvider>
+        </PostModalProvider>
     </BrowserRouter>,
 );

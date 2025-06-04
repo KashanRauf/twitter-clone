@@ -30,6 +30,8 @@ import lombok.AllArgsConstructor;
 public class TweetController {
     private final TweetService tweetService;
 
+    // TODO Add constraint to prevent having both a reply and quote in same tweet
+    // Also validate and clean input (e.g. remove trailing/leading spaces)
     @PostMapping("/new")
     public NewTweetResponse newTweet(@RequestHeader("Authorization") String token,  @RequestBody NewTweetRequest request) {
         token = token.substring(7);

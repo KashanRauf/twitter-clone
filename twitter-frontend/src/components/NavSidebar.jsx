@@ -4,10 +4,19 @@ import { IconContext } from "react-icons/lib";
 import { LuRabbit } from "react-icons/lu";
 import { IoMdBookmark, IoMdHeart, IoMdHome, IoMdPerson, IoMdSearch, IoMdExit, IoMdAdd } from "react-icons/io";
 import ProfilePic from "../components/ProfilePic";
+import PostModalContext from "../context/PostModalProvider";
 
 
 const NavSidebar = () => {
     const { auth } = useContext(AuthContext);
+    const { show, setShow, setQuotes, setRepliesTo } = useContext(PostModalContext);
+
+    const openPostModal = () => {
+        console.log("OPEN")
+        setQuotes("");
+        setRepliesTo("");
+        setShow(true);
+    }
 
     return (
         <nav className="nav-sidebar">
@@ -50,8 +59,10 @@ const NavSidebar = () => {
                         <p>Bookmarks</p>
                     </ul>
                 </li>
-                <button className="post-button white-button">Post</button>
-                <div className="post-button-alt white-button circular-button">
+                <button className="post-button white-button"
+                    onClick={openPostModal}>Post</button>
+                <div className="post-button-alt white-button circular-button"
+                    onClick={openPostModal}>
                     <IconContext.Provider value={{ size: "32px" }}>
                         <IoMdAdd color="#1a1a1a" fill="#1a1a1a" />
                     </IconContext.Provider>
