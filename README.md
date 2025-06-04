@@ -13,14 +13,13 @@ A clone of Twitter (now X but that nobody calls it that) using SQL, Java Spring,
 - Tweets can have tags
 - Users can retweet or quote-retweet
 - Users can reply to tweets
-- Emotes: Like Discord where specific strings translate to an emoji
-    - May extend further into a text formatting system like Discord's
+- ~~Text formatting like Discord messages~~
 
 ## In Progress
 - Users can scroll through a feed of all tweets or following tweets
     - Have not yet implemented for following
 - Users can write text posts (tweets) with gifs but no photos/videos (subject to change)
-    - Implemented in the backend, but not yet by the frontend
+    - Partially implemented in frontend
     - Tweets don't display gifs yet
     - Have not tried retweets/replies yet either
 
@@ -28,3 +27,4 @@ A clone of Twitter (now X but that nobody calls it that) using SQL, Java Spring,
 ## Implemented features
 - Users can have a unique handle and a non-unique, optional display name
 - Stateless security/authentication allowing users to make an account and log in to it in order to use account-specific features
+- Emotes: Like Discord where specific strings translate to an emoji
