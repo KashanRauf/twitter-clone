@@ -122,6 +122,25 @@ main {
   border: none !important;
 }
 
+.status-extras .GifPickerReact.gpr-main {
+  --gpr-bg-color: #1a1a1a;
+  --gpr-highlight-color: #1d9bf0;
+  border-color: #f9f9f9;
+  box-shadow: 4px 0 36px rgba(0, 0, 0, 20);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  .gpr-header {
+    border-color: #f9f9f9;
+  }
+
+  .gpr-body > div, .gpr-body {
+    scrollbar-width: none;
+  }
+}
+
 /* LOGIN AND REGISTRATION */
 .login-register {
   display: flex;
@@ -743,16 +762,31 @@ main {
   .new-status-field {
     grid-row: 1;
     grid-column: 2 / 4;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    resize: none;
-    overflow: hidden;
-    font-size: 20px;
+    
+    & textarea {
+      width: 100%;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      resize: none;
+      overflow: hidden;
+      font-size: 20px;
+      display: block;
+    }
 
-    &:focus {
+    & img {
+      margin: 12px auto;
+      max-height: 20vh;
+    }
+
+    &:focus-within {
       border-bottom: solid 1px #f9f9f926;
     }
+  }
+
+  img {
+    grid-row: 2;
+    grid-column: 2 / 4;
   }
 
   .status-extras {

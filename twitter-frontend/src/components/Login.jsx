@@ -49,10 +49,6 @@ const Login = ({ show, onClose, setIsAuthenticated }) => {
                     setErrMsg("Failed to log in.");
                 }
             });
-
-
-        // await axios
-        //     .post("http://127.0.0.1:8080/api/auth/authenticate", data)
     }
 
     if (!show) return null;

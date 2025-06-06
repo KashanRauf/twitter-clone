@@ -7,7 +7,8 @@ const parseTweet = (text) => {
     if (typeof text != "string") {
         return;
     }
-
+    
+    var body = [];
     // Extracts the gifLink first to embed it and remove from text
 
     // Cases where it isn't possible for an emote to exist
@@ -15,7 +16,6 @@ const parseTweet = (text) => {
         return (<span>{text}</span>);
     }
 
-    var body = [];
     var chunks = splitColons(text);
 
     // Parses through chunks between colons to find emotes
