@@ -39,6 +39,9 @@ public class TweetServiceImpl implements TweetService {
             return null;
         }
 
+        // Verification steps
+        // TODO: The date is approximately one day behind again, fix it 
+
         Tweet t = new Tweet(request, (User) user);
         Tweet saved = repo.save(t);
 

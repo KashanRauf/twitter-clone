@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import post from "../common/Post";
 import { IconContext } from "react-icons/lib";
 import { MdOutlineGifBox, MdOutlineEmojiEmotions } from "react-icons/md";  
@@ -16,10 +16,6 @@ const FeedNewStatus = ({borderless}) => {
         textarea.current.style.height = "inherit";
         textarea.current.style.height = `${textarea.current.scrollHeight}px`;
     }
-
-    useEffect(() => {
-        console.log(gifLink);
-    }, [gifLink])
 
     return (
         <div className={borderless ? "feed-new-status borderless" : "feed-new-status"}>
@@ -44,7 +40,7 @@ const FeedNewStatus = ({borderless}) => {
                 </IconContext.Provider>
             </div>
             <button type="button" className="post-status white-button"
-                onClick={() => { post({ body: statusText, gifLink: "", repliesTo: "", original: "" }) }}>Post</button>
+                onClick={() => { post({ body: statusText, gifLink: gifLink, repliesTo: "", original: "" }) }}>Post</button>
         </div>
     );
 }

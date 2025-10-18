@@ -1,12 +1,12 @@
 import React from "react";
 
-const regex = /^https:\/\/media.tenor.com\/[a-zA-Z0-9-]+\/(\w|-)+.gif$/;
+const regex = /^https:\/\/media.tenor.com\/[a-zA-Z0-9-_]+\/(\w|-)+.gif$/;
 
 const TweetGif = ({ link }) => {
     if (!link || !link.match(regex)) return null;
 
     return (
-        <img src={link} className="tweet-embed" />
+        <img src={link} className="tweet-embed"/>
     );
 }
 

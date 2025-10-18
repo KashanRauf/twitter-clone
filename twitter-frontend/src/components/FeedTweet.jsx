@@ -5,6 +5,7 @@ import { IoIosMore, IoMdShare } from "react-icons/io";
 import { BiCommentDetail, BiBookmark } from "react-icons/bi";
 import { LuCarrot } from "react-icons/lu";
 import parseTweet from "../common/ParseTweet";
+import TweetGif from "./TweetGif";
 
 
 const FeedTweet = ({tweet}) => {
@@ -29,7 +30,8 @@ const FeedTweet = ({tweet}) => {
           </div>
         </div>
         <div className="post-body">
-            {parseTweet(tweet?.body)}
+            <p>{parseTweet(tweet?.body)}</p>
+            <TweetGif link={tweet?.gifLink}/>
         </div>
         <div className="post-info-tb post-info-bottom">
           <div className="post-info-main">

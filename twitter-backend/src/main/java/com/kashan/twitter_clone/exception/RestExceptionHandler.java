@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -76,4 +77,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleSignature(SignatureException ex) {
         return buildResponseEntity(new ApiErrorResponse(HttpStatus.UNAUTHORIZED, ex));
     }
+
+    // @ExceptionHandler(MethodArgumentNotValidException.class)
+    // public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+    //     // Todo should explain which form field was invalid
+    //     return buildResponseEntity(new ApiErrorResponse(HttpStatus.BAD_REQUEST, ex));
+    // }
 }

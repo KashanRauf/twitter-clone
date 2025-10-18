@@ -27,6 +27,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public AuthenticationResponse register(UserDTO dto) {
         // TODO Validate data before registering it
+        
 
         dto.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
 

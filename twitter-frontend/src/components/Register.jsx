@@ -32,14 +32,14 @@ const Register = ({ show, onClose, setIsAuthenticated }) => {
     const [display, setDisplay] = useState("");
     const [validDisplay, setValidDisplay] = useState(false);
 
-    const [bdate, setBDate] = useState(parseDate("2025-05-11"));
+    const [bdate, setBDate] = useState(today);
     const [validBDate, setValidBDate] = useState(false);
 
     const [errMsg, setErrMsg] = useState("");
 
     // Hooks check that the given information is valid
     useEffect(() => {
-        const res = handle_regex.test(handle);
+        const res = handle_regex.test(handle) && 4 <= handle.length && handle.length <= 16;
         setValidHandle(res);
 
         // console.log(res);
@@ -47,7 +47,7 @@ const Register = ({ show, onClose, setIsAuthenticated }) => {
     }, [handle]);
 
     useEffect(() => {
-        const res = display_regex.test(display);
+        const res = display_regex.test(display) && display.length <= 32;
         setValidDisplay(res || display.length == 0);
 
         // console.log(res);
@@ -55,7 +55,7 @@ const Register = ({ show, onClose, setIsAuthenticated }) => {
     }, [display]);
 
     useEffect(() => {
-        const res = pwd_regex.test(pwd);
+        const res = pwd_regex.test(pwd) && 8 <= pwd.length && pwd.length <= 24;
         setValidPwd(res);
 
         // console.log(res);
@@ -89,11 +89,11 @@ const Register = ({ show, onClose, setIsAuthenticated }) => {
 
     // Based on what fields are valid, sets an appropriate error message.
     useEffect(() => {
-        if (!validHandle) {
-            setErrMsg("Handle must be between 4-16 characters in length. May only use alphanumeric characters, underscore (_), or period (.), must start with an a letter.");
-        } else if (!validPwd) {
+        if (!validHandle && handle.length > 0) {
+            setErrMsg("Handle must be between 4-16 characters in length. May only use alphanumeric characters, underscore (_), or period (.), must start with a letter.");
+        } else if (!validPwd && pwd.length > 0) {
             setErrMsg("Password must be between 8-24 characters in length. Must inlcude at least one uppercase letter, lowercase letter, digit, and special character.");
-        } else if (!validMatchPwd) {
+        } else if (!validMatchPwd && matchPwd.length > 0) {
             setErrMsg("Passwords do not match.");
         } else if (!validDisplay) {
             setErrMsg("Display name may not exceed 32 characters in length.")
@@ -102,6 +102,7 @@ const Register = ({ show, onClose, setIsAuthenticated }) => {
         } else {
             setErrMsg("");
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [validHandle, validPwd, validMatchPwd, validDisplay, validBDate]);
 
     // Checks that all fields are valid.

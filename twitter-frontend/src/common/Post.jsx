@@ -7,6 +7,11 @@ import toast from "react-hot-toast";
 // data should be in format of {body, gifLink, repliesTo, original}
 const post = async (data) => {
     // console.log(data)
+    if ((!data.body || data.body.length <= 0) && (!data.gifLink || data.gifLink.length <= 0)) {
+        toast.error("Posts must include text or a gif.");
+        return;
+    }
+
     await tweetReq
         .post("/new", data)
         .then((response) => {
