@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import post from "../common/Post";
 import { IconContext } from "react-icons/lib";
 import { MdOutlineGifBox, MdOutlineEmojiEmotions } from "react-icons/md";  
-import ProfilePic from "../components/ProfilePic";
+import { ProfilePic } from "./StaticAsset";
 import OpenGifPicker from "./OpenGifPicker";
 import TweetGif from "./TweetGif";
 

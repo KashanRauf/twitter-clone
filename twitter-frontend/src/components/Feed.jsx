@@ -3,12 +3,10 @@ import FeedTweet from "./FeedTweet";
 import FeedNewStatus from "./FeedNewStatus";
 
 const Feed = ({postList, isLoading, topType}) => {
-    var top = "";
+    var top = <></>;
 
     if (topType == "new-status") {
         top = <FeedNewStatus borderless={false}/>
-    } else if (topType == "profile") {
-        // Not implemented yet
     }
 
     return (

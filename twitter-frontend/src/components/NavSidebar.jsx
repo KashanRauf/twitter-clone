@@ -3,12 +3,14 @@ import AuthContext from "../context/AuthProvider";
 import { IconContext } from "react-icons/lib";
 import { LuRabbit } from "react-icons/lu";
 import { IoMdBookmark, IoMdHeart, IoMdHome, IoMdPerson, IoMdSearch, IoMdExit, IoMdAdd } from "react-icons/io";
-import ProfilePic from "../components/ProfilePic";
+import { ProfilePic } from "./StaticAsset";
 import PostModalContext from "../context/PostModalProvider";
+import { Link } from "react-router-dom";
 
 
 const NavSidebar = () => {
     const { auth } = useContext(AuthContext);
+    // eslint-disable-next-line no-unused-vars
     const { show, setShow, setQuotes, setRepliesTo } = useContext(PostModalContext);
 
     const openPostModal = () => {
@@ -29,34 +31,44 @@ const NavSidebar = () => {
                         {/* <p></p> */}
                     </ul>
                     <ul className="sidebar-item">
-                        <IconContext.Provider value={{ size: "32px" }}>
-                            <IoMdHome />
-                        </IconContext.Provider>
-                        <p>Home</p>
+                        <Link to={"/home"}>
+                            <IconContext.Provider value={{ size: "32px" }}>
+                                <IoMdHome />
+                            </IconContext.Provider>
+                            <p>Home</p>
+                        </Link>
                     </ul>
                     <ul className="sidebar-item">
-                        <IconContext.Provider value={{ size: "32px" }}>
-                            <IoMdSearch />
-                        </IconContext.Provider>
-                        <p>Search</p>
+                        <Link to={"/search"}>
+                            <IconContext.Provider value={{ size: "32px" }}>
+                                <IoMdSearch />
+                            </IconContext.Provider>
+                            <p>Search</p>
+                        </Link>
                     </ul>
                     <ul className="sidebar-item">
-                        <IconContext.Provider value={{ size: "32px" }}>
-                            <IoMdPerson />
-                        </IconContext.Provider>
-                        <p>Profile</p>
+                        <Link to={"/profile/" + auth.handle}>
+                            <IconContext.Provider value={{ size: "32px" }}>
+                                <IoMdPerson />
+                            </IconContext.Provider>
+                            <p>Profile</p>
+                        </Link>
                     </ul>
                     <ul className="sidebar-item">
-                        <IconContext.Provider value={{ size: "32px" }}>
-                            <IoMdHeart />
-                        </IconContext.Provider>
-                        <p>Likes</p>
+                        <Link to={"/likes"}>
+                            <IconContext.Provider value={{ size: "32px" }}>
+                                <IoMdHeart />
+                            </IconContext.Provider>
+                            <p>Likes</p>
+                        </Link>
                     </ul>
                     <ul className="sidebar-item">
-                        <IconContext.Provider value={{ size: "32px" }}>
-                            <IoMdBookmark />
-                        </IconContext.Provider>
-                        <p>Bookmarks</p>
+                        <Link to={"/bookmarks"}>
+                            <IconContext.Provider value={{ size: "32px" }}>
+                                <IoMdBookmark />
+                            </IconContext.Provider>
+                            <p>Bookmarks</p>
+                        </Link>
                     </ul>
                 </li>
                 <button className="post-button white-button"

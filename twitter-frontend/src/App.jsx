@@ -1,10 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { React, useEffect, useContext } from "react";
+import { useContext, useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import AuthContext from "./context/AuthProvider";
+import Base from "./pages/Base";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
-import AuthContext from "./context/AuthProvider";
-import { Toaster } from "react-hot-toast";
+import Profile from "./pages/Profile";
 
 function App() {
     const { auth } = useContext(AuthContext);
@@ -42,15 +44,18 @@ function App() {
                     },
                 },
             }}/>
+
             <Routes>
                 <Route path="/login" element={<LoginPage/>}/>
-                <Route path="/home" element={<Home/>}/>
-                {/* Using Home as placeholders for now */}
-                <Route path="/search" element={<Home/>}/>
-                <Route path="/profile/:handle" element={<Home/>}/>
-                <Route path="/likes" element={<Home/>}/>
-                <Route path="/bookmarks" element={<Home/>}/>
-                <Route path="/*" element={<Home/>}/>
+                <Route element={<Base/>}>
+                    <Route path="/home" element={<Home/>}/>
+                    {/* Using Home as placeholders for now */}
+                    <Route path="/search" element={<Home/>}/>
+                    <Route path="/profile/:handle" element={<Profile/>}/>
+                    <Route path="/likes" element={<Home/>}/>
+                    <Route path="/bookmarks" element={<Home/>}/>
+                    <Route path="/*" element={<Home/>}/>
+                </Route>
             </Routes>
         </>
     );

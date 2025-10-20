@@ -1,5 +1,4 @@
-import React from "react";
-import ProfilePic from "./ProfilePic";
+import { ProfilePic } from "./StaticAsset";
 import { Link } from "react-router-dom";
 import { IoIosMore, IoMdShare } from "react-icons/io";
 import { BiCommentDetail, BiBookmark } from "react-icons/bi";
@@ -9,7 +8,6 @@ import TweetGif from "./TweetGif";
 
 
 const FeedTweet = ({tweet}) => {
-  
   return (
     <div className="feed-post">
         <ProfilePic/>
