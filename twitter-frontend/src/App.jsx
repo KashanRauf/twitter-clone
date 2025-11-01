@@ -12,7 +12,7 @@ function App() {
     const { auth } = useContext(AuthContext);
     const nav = useNavigate();
     const loc = useLocation();
-    
+
     // If the user is not authenticated -> login/signup page
     useEffect(() => {
         // console.log("auth" + auth.token);

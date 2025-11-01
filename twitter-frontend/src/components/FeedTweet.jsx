@@ -18,7 +18,7 @@ const FeedTweet = ({tweet}) => {
             </span>
             <span className="post-info-handle">{"@" + tweet?.user.handle}</span>
             <span>·</span>
-            <span className="post-info-time">{(new Date(tweet?.postDate)).toLocaleDateString("UTC")}</span>
+            <span className="post-info-time">{(new Date(tweet?.postDate)).toLocaleDateString('en-US', {timeZone: "UTC"})}</span>
           </div>
           <div className="post-info-aside hhhh">
             <span className="post-info-button circular-button"

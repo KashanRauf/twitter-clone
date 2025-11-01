@@ -3,7 +3,7 @@ import AuthContext from "../context/AuthProvider";
 import Feed from "../components/Feed";
 import { tweetReq } from "../common/Request";
 
-const fetchTweets = async (token, setData, setLoading) => {
+const fetchTweets = async (setData, setLoading) => {
     var data = [];
 
     await tweetReq
@@ -12,7 +12,7 @@ const fetchTweets = async (token, setData, setLoading) => {
             data = response.data;
         }).catch((error) => {
             console.log(error);
-        })
+        });
 
     setData(data.reverse());
     setLoading(false);
@@ -29,7 +29,7 @@ const Home = () => {
 
     useEffect(() => {
         if (!auth?.token) return;
-        fetchTweets(auth.token, setFeedPosts, setLoading);
+        fetchTweets(setFeedPosts, setLoading);
 
     }, [auth.token]);
 

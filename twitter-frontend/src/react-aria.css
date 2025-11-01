@@ -1,0 +1,151 @@
+.react-aria-DatePicker {
+  padding: 4px 6px;
+  border: solid 1px #f9f9f97f;
+  border-radius: 4px;
+  background-color: #1a1a1a;
+  color: #f9f9f9;
+
+  .react-aria-Group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .react-aria-Button {
+    color: #f9f9f9;
+    border-radius: 4px;
+    width: 1.429rem;
+    height: 1.429rem;
+    padding: 0;
+    font-size: 0.857rem;
+    box-sizing: border-box;
+
+
+    &[data-hovered], &[data-pressed] {
+      border: solid 1px #1d9bf0;
+    }
+  }
+}
+
+.react-aria-Dialog {
+  padding: 8px;
+  background-color: #1a1a1a;
+  border: solid 1px #f9f9f9;
+  border-radius: 8px;
+  min-width: 12vw;
+  max-width: 24vw;
+  /* margin-left: -2em; */
+  box-shadow: 8px 8px 12px rgba(0, 0, 0, 20);
+
+  & .react-aria-Calendar {
+
+    & header {
+      display: flex;
+      align-items: center;
+      align-content: center;
+      margin: 0 4px .5rem;
+
+      & button {
+        font-family: Arial;
+        width: 1.5rem;
+        height: 1.5rem;
+        padding: 0;
+        color: #f9f9f9;
+        background: #1a1a1a;
+        border: solid 1px #f9f9f9;
+        appearance: none;
+        vertical-align: middle;
+        text-align: center;
+        border-radius: 4px;
+        outline: none;
+        margin: 0;
+        font-size: 1rem;
+        text-decoration: none;
+
+        &:hover {
+          border-color: #1d9bf0;
+        }
+
+        &:focus, &:active {
+          outline: none;
+          box-shadow: none;
+          background-color: none;
+        }
+      }
+
+      & h2 {
+        text-align: center;
+        flex: 1;
+        margin: 0;
+        font-size: 1.375rem;
+        display: block;
+        margin-block-start: .83rem;
+        margin-block-end: .83rem;
+        margin-inline-start: 0;
+        margin-inline-end: 0;
+        font-weight: bold;
+        unicode-bidi: isolate;
+      }
+    }
+
+    & table {
+      display: table;
+      border-collapse: separate;
+      text-indent: initial;
+      border-spacing: 2px;
+      border-color: #1d9bf0;
+      text-size-adjust: none;
+      width: 100%;
+      text-align: center;
+
+      & thead {
+        display: table-header-group;
+        vertical-align: middle;
+        border-color: inherit;
+      }
+
+      & tbody {
+        display: table-row-group;
+        vertical-align: middle;
+        border-color: inherit;
+      }
+
+      & tr {
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+
+        & th {
+          display: table-cell;
+          vertical-align: inherit;
+          font-weight: bold;
+          text-align: -internal-center;
+        }
+        
+        & td {
+          display: table-cell;
+          vertical-align: inherit;
+
+          & div:hover {
+            background-color: #1d9bf095;
+            border-radius: 100%;
+          }
+
+          & div[data-outside-month] {
+            display: none;
+            &:hover {
+              background-color: #1a1a1a;
+            }
+          }
+
+          & div[data-disabled] {
+            color: #f9f9f995;
+            &:hover {
+              background-color: #1a1a1a;
+            }
+          }
+        }
+      }
+    }
+  }
+}

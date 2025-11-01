@@ -1,0 +1,6 @@
+Apply all changes and remove redundant classes once CSS refactoring is done
+
+Change lr-modal to modal since they are being unified into a proper structure
+Use specific modal classes or inline style to adjust size?
+lr-button class redundant
+login/register-form/-pair redundant(?)

@@ -1,0 +1,26 @@
+{
+  "autorun": false,
+  "terminals": [
+    {
+      "name": "Misc",
+      "execute": false,
+      "command": "git add --all"
+    },
+    {
+      "name": "Backend",
+      "commands": [
+        "cd twitter-backend",
+        "mvn spring-boot:run"
+      ]
+    },
+    {
+      "name": "Frontend",
+      "focus": true,
+      "execute": false,
+      "commands": [
+        "cd twitter-frontend",
+        "npm run dev"
+      ]
+    }
+  ]
+}

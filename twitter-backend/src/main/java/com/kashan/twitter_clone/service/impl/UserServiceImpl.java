@@ -24,6 +24,11 @@ public class UserServiceImpl implements UserService {
         return new UserDTO(u);
     }
 
+    public UserDTO getUser(String handle) {
+        User u = repo.findByHandle(handle).orElseThrow(() -> new EntityNotFoundException("Failed to find user with handle: " + handle));
+        return new UserDTO(u);    
+    }
+
     @Override
     public List<UserDTO> getAllUsers() {
         List<User> all = repo.findAll();

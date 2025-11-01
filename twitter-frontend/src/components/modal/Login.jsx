@@ -2,9 +2,10 @@ import React, { useRef, useState, useContext } from "react";
 import { IconContext } from "react-icons/lib";
 import { IoIosInformationCircle, IoMdClose } from "react-icons/io";
 import { LuRabbit } from "react-icons/lu";
-import AuthContext from "../context/AuthProvider";
+import AuthContext from "../../context/AuthProvider";
 import { jwtDecode } from "jwt-decode";
-import { authReq, setAuthToken } from "../common/Request";
+import { authReq, setAuthToken } from "../../common/Request";
+import Modal from "./Modal";
 
 
 // Login modal
@@ -51,25 +52,20 @@ const Login = ({ show, onClose, setIsAuthenticated }) => {
             });
     }
 
-    if (!show) return null;
-
     return (
-        <section className="lr-modal">
-            <IconContext.Provider value={{ size: 24 }}>
-                <IoMdClose onClick={onClose} className="modal-close" />
-            </IconContext.Provider>
+        <Modal show={show} onClose={onClose} classes="lr-modal">
             <IconContext.Provider value={{ size: 36 }}>
-                <LuRabbit className="lr-modal-icon" />
+                <LuRabbit className="lr-modal-icon modal-icon" />
             </IconContext.Provider>
 
             <h2>Login</h2>
-            <form className="login-form">
-                <div className="login-form-pair">
+            <form className="login-form modal-form">
+                <div className="login-form-pair form-pair">
                     <label htmlFor="handle">Handle</label>
                     <input id="handle" name="handle" type="text" ref={userRef} autoComplete="off"
                         required value={handle} onChange={(e) => { setHandle(e.target.value) }} />
                 </div>
-                <div className="login-form-pair">
+                <div className="login-form-pair form-pair">
                     <label htmlFor="password">Password</label>
                     <input id="password" name="password" type="password" required
                         value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -80,10 +76,10 @@ const Login = ({ show, onClose, setIsAuthenticated }) => {
                     <p>{errMsg}</p>
                 </div>
 
-                <button type="button" className="lr-button" style={{gridRow:"4/5"}}
+                <button type="button" className="lr-button btn-blue btn-big" style={{gridRow:"4/5"}}
                     onClick={handleLogin}>Login</button>
             </form>
-        </section>
+        </Modal>
 
 
     );

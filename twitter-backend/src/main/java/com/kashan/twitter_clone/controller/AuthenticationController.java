@@ -26,6 +26,7 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
+    // TODO Add a new constraint preventing only numbers in a handle
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> registerNewUser(@RequestBody UserDTO user) {
         return ResponseEntity.ok(authenticationService.register(user));

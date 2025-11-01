@@ -60,6 +60,12 @@ public class TweetServiceImpl implements TweetService {
         return all.stream().map((t) -> new TweetDTO(t)).collect(Collectors.toList());
     }
 
+    @Override
+    public List<TweetDTO> getAllByUser(Long id) {
+        List<Tweet> userAll = repo.findByUserId(id);
+        return userAll.stream().map((t) -> new TweetDTO(t)).collect(Collectors.toList());
+    }
+
     // TODO Implement from UserService side
     // @Override
     // public List<TweetDTO> getAllByUser(Long id) {

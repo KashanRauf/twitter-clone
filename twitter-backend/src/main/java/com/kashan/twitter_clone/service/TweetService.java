@@ -9,5 +9,5 @@ public interface TweetService {
     TweetDTO newTweet(NewTweetRequest request, String token);
     TweetDTO getTweet(Long id);
     List<TweetDTO> getAllTweets();
-    // List<TweetDTO> getAllByUser(Long id);
+    List<TweetDTO> getAllByUser(Long id);
 }

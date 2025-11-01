@@ -27,9 +27,17 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable("id") Long id) {
+    public ResponseEntity<UserDTO> getUser(@PathVariable("id") String id) {
         // System.out.println("Attempted to get user with id: " + id);
-        UserDTO got = userService.getUser(id);
+        UserDTO got;
+
+        // Checks if numeric
+        if (id.matches("\\d+")) {
+            got = userService.getUser(Long.parseLong(id));
+        } else {
+            got = userService.getUser(id);
+        }
+
         return ResponseEntity.ok(got);
     }
 

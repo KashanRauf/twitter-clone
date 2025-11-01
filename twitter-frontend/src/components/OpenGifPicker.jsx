@@ -1,7 +1,7 @@
 import React from "react";
 import GifPicker from "gif-picker-react";
 import { tenor } from "../common/ApiKey";
-import ModalBG from "./ModalBG";
+import ModalBG from "./modal/ModalBG";
 
 const OpenGifPicker = ({show, onclose, target}) => {
   if (!show) {

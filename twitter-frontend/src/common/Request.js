@@ -20,6 +20,7 @@ export const setAuthToken = (token) => {
     tweetReq.defaults.headers =  {
         Authorization: `Bearer ${token}`
     }
+
     // console.log("Updated headers: ");
     // console.log(userReq.defaults.headers);
     // console.log(tweetReq.defaults.headers);

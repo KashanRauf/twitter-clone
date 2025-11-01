@@ -17,6 +17,12 @@ public interface UserService {
      */
     UserDTO getUser(Long id);
     /**
+     * Gets the user with the given id if they exist.
+     * @param id of the user being fetched.
+     * @return A UserDTO representing the user with the given id.
+     */
+    UserDTO getUser(String id);
+    /**
      * Gets all users that exist in the database.
      * @return A List of UserDTOs for each user.
      */

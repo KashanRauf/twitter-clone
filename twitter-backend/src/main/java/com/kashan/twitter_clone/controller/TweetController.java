@@ -53,5 +53,9 @@ public class TweetController {
         return ResponseEntity.ok(all);
     }
     
-    
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<TweetDTO>> getAllByUser(@PathVariable("id") Long id) {
+        List<TweetDTO> userAll = tweetService.getAllByUser(id);
+        return ResponseEntity.ok(userAll);
+    }
 }

@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import NavSidebar from "../components/NavSidebar";
-import PostModal from "../components/PostModal";
+import PostModal from "../components/modal/PostModal";
 
 const Base = () => {
     return (
